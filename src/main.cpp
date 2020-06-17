@@ -1,23 +1,29 @@
-#include <string>
+ï»¿#include <string>
 #include "imageIO.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
-	BitmapReader bmpReader;										// Bitmapƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş‚½‚ß‚ÌƒNƒ‰ƒX
-	RGBImage image;												// ‰æ‘œ‚ğ•Û‚·‚é‚½‚ß‚Ì•Ï”
-	//color_image image;
-	std::string inputFilename = "../data/color/Lenna.bmp";	    // “Ç‚İ‚ŞBitmapƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
-	bmpReader.read(inputFilename, &image);						// BitmapReader‚ÌRead‚ğg‚¤‚±‚Æ‚Å‰æ‘œ‚ğ•Ï”‚É‘Î‚µ‚Ä“Ç‚İ‚Ş
+	RGBImage image;												// ç”»åƒã‚’ä¿æŒã™ã‚‹ãŸã‚ã®å¤‰æ•°
+	BitmapReader bmpReader;										// Bitmapãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ãŸã‚ã®ã‚¯ãƒ©ã‚¹
+	std::string inputFilename = "../data/color/Lenna.bmp";	    // èª­ã¿è¾¼ã‚€Bitmapãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹
+	bmpReader.read(inputFilename, &image);						// BitmapReaderã®Readã‚’ä½¿ã†ã“ã¨ã§ç”»åƒã‚’å¤‰æ•°ã«å¯¾ã—ã¦èª­ã¿è¾¼ã‚€
 
-	RGBType pixelValue;											// ƒsƒNƒZƒ‹’l‚ğ•Û‚·‚é‚½‚ß‚Ì•Ï”
-	//pixelValue = image.data[20][10];							// X : 10, Y : 20‚ÌˆÊ’u‚ÌƒsƒNƒZƒ‹’l(RGBTypeŒ^)‚ğæ‚èo‚·
+	RGBType pixelValue;											// ãƒ”ã‚¯ã‚»ãƒ«å€¤ã‚’ä¿æŒã™ã‚‹ãŸã‚ã®å¤‰æ•°
+	//pixelValue = image.data[20][10];							// X : 10, Y : 20ã®ä½ç½®ã®ãƒ”ã‚¯ã‚»ãƒ«å€¤(RGBTypeå‹)ã‚’å–ã‚Šå‡ºã™
 
+	image.data[10][20].setElement(0, 255, 0);
 
-	image.data[10][20].setElement(0, 255, 0);					// X : 20, Y : 10‚ÌˆÊ’u‚ÌƒsƒNƒZƒ‹’l‚Ér : 255, g : 100, b : 0‚ğƒZƒbƒg
+	for (int y = 0; y < image.sizeY / 2; ++y)
+	{
+		for (int x = 0; x < image.sizeX / 2; ++x)
+		{
+			image.data[y][x].setElement(0, 0, 255);				// X : x, Y : yã®ä½ç½®ã®ãƒ”ã‚¯ã‚»ãƒ«å€¤ã«r : 255, g : 100, b : 0ã‚’ã‚»ãƒƒãƒˆ
+		}
+	}
 
-	BitmapWriter bmpWriter;										// Bitmapƒtƒ@ƒCƒ‹‚ğ‘‚«‚Ş‚½‚ß‚ÌƒNƒ‰ƒX
-	std::string outputFilename = "original_ok.bmp";	            // o—Í‰æ‘œ‚ÌƒpƒX‚Æ–¼‘O
-	bmpWriter.write(outputFilename, &image);					// ƒrƒbƒgƒ}ƒbƒv‚Ö‘‚«o‚µ
+	BitmapWriter bmpWriter;										// Bitmapãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ›¸ãè¾¼ã‚€ãŸã‚ã®ã‚¯ãƒ©ã‚¹
+	std::string outputFilename = "output.bmp";					// å‡ºåŠ›ç”»åƒã®ãƒ‘ã‚¹ã¨åå‰
+	bmpWriter.write(outputFilename, &image);					// ãƒ“ãƒƒãƒˆãƒãƒƒãƒ—ã¸æ›¸ãå‡ºã—
 
 	return 0;
 }

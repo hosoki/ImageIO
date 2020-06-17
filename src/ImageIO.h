@@ -1,41 +1,41 @@
-/***************************************
+ï»¿/***************************************
  *
  * "ImageIO.h".h
  *
- * ‰æ‘œ‚Ì“üo—Í
+ * ç”»åƒã®å…¥å‡ºåŠ›
  *
  * Version    : 5
  * Month/Year : 05/2010
  * Author     : Shinya MAEDA, Kim Lab.
  ***************************************/
  /**************************************
-  * XVî•ñ@2008/09/09
-  * ‹ãB•‰È‘åŠw‚ÌDICOM‚ğ“Ç‚ß‚é‚æ‚¤‚É‚µ‚Ü‚µ‚½B
-  * ƒwƒbƒ_‚É#define NON_PRIFIX ‚ğ‹Lq‚·‚é‚±‚Æ
-  * Preamble : ‚È‚µ
-  * Prefix   : ‚È‚µ
-  * Data Element : Group 0008 Element 0000@(ŠJnˆÊ’u)
-  * Implicit VR ‚É‚æ‚é‹Lq
+  * æ›´æ–°æƒ…å ±ã€€2008/09/09
+  * ä¹å·æ­¯ç§‘å¤§å­¦ã®DICOMã‚’èª­ã‚ã‚‹ã‚ˆã†ã«ã—ã¾ã—ãŸã€‚
+  * ãƒ˜ãƒƒãƒ€ã«#define NON_PRIFIX ã‚’è¨˜è¿°ã™ã‚‹ã“ã¨
+  * Preamble : ãªã—
+  * Prefix   : ãªã—
+  * Data Element : Group 0008 Element 0000ã€€(é–‹å§‹ä½ç½®)
+  * Implicit VR ã«ã‚ˆã‚‹è¨˜è¿°
  ****************************************/
  /**************************************
-  * XVî•ñ@2008/09/19
-  * ƒ{ƒŠƒ…[ƒ€ƒf[ƒ^‚©‚çBitmapƒtƒ@ƒCƒ‹‚ğ
-  * ƒV[ƒPƒ“ƒVƒƒƒ‹‚Éo—Í‰Â”\
+  * æ›´æ–°æƒ…å ±ã€€2008/09/19
+  * ãƒœãƒªãƒ¥ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰Bitmapãƒ•ã‚¡ã‚¤ãƒ«ã‚’
+  * ã‚·ãƒ¼ã‚±ãƒ³ã‚·ãƒ£ãƒ«ã«å‡ºåŠ›å¯èƒ½
  ****************************************/
  /**************************************
-  * XVî•ñ@2008/10/21
-  * WL,WW,GANMA‚ğ—p‚¢‚½”Z“xæ~’²•ÏŠ·‚ğ’Ç‰Á
+  * æ›´æ–°æƒ…å ±ã€€2008/10/21
+  * WL,WW,GANMAã‚’ç”¨ã„ãŸæ¿ƒåº¦è«§èª¿å¤‰æ›ã‚’è¿½åŠ 
  ****************************************/
  /**************************************
-  * XVî•ñ@2008/10/24
-  * VR‚ÌSQ‚ª’l’·‚³‚ª–¢’è‹`’·‚³‚Ìê‡‚Ì
-  * —áŠOˆ—‚ğ’Ç‰Á
+  * æ›´æ–°æƒ…å ±ã€€2008/10/24
+  * VRã®SQãŒå€¤é•·ã•ãŒæœªå®šç¾©é•·ã•ã®å ´åˆã®
+  * ä¾‹å¤–å‡¦ç†ã‚’è¿½åŠ 
  ****************************************/
  /**************************************
-  * XVî•ñ@2011/03/02
-  * prefix‚Ì—L–³‚ÉŠÖ‚í‚ç‚¸ADICOM‰æ‘œ“Ç‚İ‚İ‰Â”\‚É•ÏX
-  * ƒxƒNƒgƒ‹—v‘f‚ÌƒNƒ‰ƒX‚Ì’Ç‰Á
-  * ShortŒ^ˆÈŠO‚àBMPo—Í‰Â”\‚ÈwriteTŠÖ”‚Ì’Ç‰Á
+  * æ›´æ–°æƒ…å ±ã€€2011/03/02
+  * prefixã®æœ‰ç„¡ã«é–¢ã‚ã‚‰ãšã€DICOMç”»åƒèª­ã¿è¾¼ã¿å¯èƒ½ã«å¤‰æ›´
+  * ãƒ™ã‚¯ãƒˆãƒ«è¦ç´ ã®ã‚¯ãƒ©ã‚¹ã®è¿½åŠ 
+  * Shortå‹ä»¥å¤–ã‚‚BMPå‡ºåŠ›å¯èƒ½ãªwriteTé–¢æ•°ã®è¿½åŠ 
  ****************************************/
 #ifndef IMAGE_IO_H_
 #define IMAGE_IO_H_
@@ -48,20 +48,26 @@
 #include <sstream>
 #include <cmath>
 #include <float.h>
-#include "direct.h"	//ƒtƒHƒ‹ƒ_ì¬—p
+#include <climits>
 
- //•À—ñˆ—‚ğs‚¤ê‡‚ÍƒRƒƒ“ƒgƒAƒEƒg‚ğ‚Í‚¸‚·
+#ifdef _WIN64
+#include <direct.h>	//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆç”¨
+#elif __linux
+#include <sys/stat.h>
+#endif // _WIN64
+
+ //ä¸¦åˆ—å‡¦ç†ã‚’è¡Œã†å ´åˆã¯ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã‚’ã¯ãšã™
 #define OPENMP
 
 #ifdef OPENMP
 #include<omp.h>
 #endif
 
-//‹ãB•‰È‘åŠw‚ÌDICOM‚Ì‚Æ‚«‚ÍKYUSHU_DENT_UNIV‚ğdefine‚·‚é
+//ä¹å·æ­¯ç§‘å¤§å­¦ã®DICOMã®ã¨ãã¯KYUSHU_DENT_UNIVã‚’defineã™ã‚‹
 
 //---------------------------------------------------------------------------------------------------
-// ƒf[ƒ^”z—ñŠÖŒW
-//  ƒeƒ“ƒvƒŒ[ƒg‚ğ—p‚¢‚Ä‚¢‚é
+// ãƒ‡ãƒ¼ã‚¿é…åˆ—é–¢ä¿‚
+//  ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’ç”¨ã„ã¦ã„ã‚‹
 //---------------------------------------------------------------------------------------------------
 
 template < class T > class DataArray;
@@ -73,27 +79,27 @@ template < class T > class DataArray3D;
 //typedef unsigned short UShort;
 namespace ELEMENT {
 	//
-	// 2ŸŒ³ƒxƒNƒgƒ‹Œ^ 
+	// 2æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«å‹ 
 	//
 	template < class T > class Vector2D
 	{
 	public:
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Vector2D(T x = 0, T y = 0) : X(x), Y(y) {}
-		//ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		//ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Vector2D(Vector2D & obj) : X(obj.X), Y(obj.Y) {}
-		//ƒfƒXƒgƒ‰ƒNƒ^
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		~Vector2D() {}
-		// ’l‚Ìİ’è
+		// å€¤ã®è¨­å®š
 		void set(T data) { X = Y = data; }
 		void set(T x, T y) {
 			this->X = x;
 			this->Y = y;
 		}
-		// —v‘f
+		// è¦ç´ 
 		T X;
 		T Y;
-		//ƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+		//ã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 		Vector2D & operator=(Vector2D & obj) {
 			this->X = obj.X;
 			this->Y = obj.Y;
@@ -102,32 +108,32 @@ namespace ELEMENT {
 	private:
 	};
 	//
-	// 3ŸŒ³ƒxƒNƒgƒ‹Œ^
+	// 3æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«å‹
 	//
 	template < class T > class Vector3D {
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Vector3D(T x = 0, T y = 0, T z = 0) : X(x), Y(y), Z(z) {}
-		// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Vector3D(const Vector3D &obj) : X(obj.X), Y(obj.Y), Z(obj.Z) {}
-		// ƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		~Vector3D() {}
 
-		// ’l‚Ìİ’è
+		// å€¤ã®è¨­å®š
 		void set(T data) { X = Y = Z = data; }
 		void set(T x, T y, T z) {
 			this->X = x;
 			this->Y = y;
 			this->Z = z;
 		}
-		// ƒtƒ@ƒCƒ‹o—Í(–¢À‘•)
-		// ƒtƒ@ƒCƒ‹“ü—Í(–¢À‘•)
-		// —v‘f
+		// ãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›(æœªå®Ÿè£…)
+		// ãƒ•ã‚¡ã‚¤ãƒ«å…¥åŠ›(æœªå®Ÿè£…)
+		// è¦ç´ 
 		T X;
 		T Y;
 		T Z;
 
-		// ƒRƒs[‘ã“ü‰‰Zq
+		// ã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­
 		Vector3D& operator=(const Vector3D &obj)
 		{
 			this->X = obj.X;
@@ -140,7 +146,7 @@ namespace ELEMENT {
 	};
 }
 
-// ‚æ‚­g‚¤‰æ‘œ”z—ñ‚Ítypedef‚µ‚Ä‚¨‚­
+// ã‚ˆãä½¿ã†ç”»åƒé…åˆ—ã¯typedefã—ã¦ãŠã
 typedef ELEMENT::Vector2D<bool> Bool2D;
 typedef ELEMENT::Vector2D<char> Char2D;
 typedef ELEMENT::Vector2D<unsigned char> UChar2D;
@@ -156,20 +162,20 @@ typedef ELEMENT::Vector3D<int> Int3D;
 typedef ELEMENT::Vector3D<float> Float3D;
 typedef ELEMENT::Vector3D<double> Double3D;
 //
-// 1ŸŒ³”z—ñƒNƒ‰ƒX
+// 1æ¬¡å…ƒé…åˆ—ã‚¯ãƒ©ã‚¹
 //
 template < class T > class DataArray {
 public:
-	typedef T ValueType;	// Ši”[‚·‚éƒf[ƒ^Œ^
+	typedef T ValueType;	// æ ¼ç´ã™ã‚‹ãƒ‡ãƒ¼ã‚¿å‹
 
-	int size;	// —v‘f”
-	double scale; // ¡–@
-	T *data;	// ƒf[ƒ^”z—ñ
+	int size;	// è¦ç´ æ•°
+	double scale; // å¯¸æ³•
+	T *data;	// ãƒ‡ãƒ¼ã‚¿é…åˆ—
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray() : size(0), scale(1.0f), data(0) {}
 	DataArray(int size) : size(size), scale(1.0f), data(0) {
-		// ƒƒ‚ƒŠŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªå‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T[size];
 		if (!data) {
 			std::cerr << "Memory allocation error! DataArray::DataArray(int size)" << std::endl;
@@ -179,22 +185,22 @@ public:
 			//std::exit(1);
 			return;
 		}
-		// 0‚Å‰Šú‰»
+		// 0ã§åˆæœŸåŒ–
 		std::memset(data, 0, sizeof(T) * size);
 	}
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~DataArray() { clear(); }
 
 	// resize
-	//   ”z—ñ‚ÌƒŠƒTƒCƒY
+	//   é…åˆ—ã®ãƒªã‚µã‚¤ã‚º
 	// 
-	//  ˆø”
-	//   size : ”z—ñ‚ÌƒTƒCƒY
+	//  å¼•æ•°
+	//   size : é…åˆ—ã®ã‚µã‚¤ã‚º
 	void resize(int size) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚é‚È‚çŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã‚‹ãªã‚‰é–‹æ”¾ã™ã‚‹
 		if (data != 0) { clear(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T[size];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray::resize(int size)" << std::endl;
@@ -202,28 +208,28 @@ public:
 			//std::exit(1);
 			return;
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->size = size;
 		this->scale = 1.0f;
-		// ”z—ñ‚ğ0‚Å‰Šú‰»
+		// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 		std::memset(data, 0, sizeof(T) * size);
 	}
 
 	// clear
-	//  ƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•ú
+	//  ãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾
 	void clear() {
-		// ƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚È‚¢‚È‚ç‚Î‰½‚à‚µ‚È‚¢
+		// ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ãªã„ãªã‚‰ã°ä½•ã‚‚ã—ãªã„
 		if (data == 0) { return; }
-		// ƒƒ‚ƒŠ‚ÌŠJ•ú
+		// ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 		delete[] data;
-		// ƒƒ“ƒo•Ï”‚Ì‰Šú‰»
+		// ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–
 		data = 0;
 		size = 0;
 	}
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray(const DataArray & obj) : size(obj.size), scale(obj.scale), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T[size];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray::DataArray(const DataArray< T > & obj)" << std::endl;
@@ -231,40 +237,40 @@ public:
 			//std::exit(1);
 			return;
 		}
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		std::memcpy(data, obj.data, sizeof(T) * size);
 	}
 
-	//ƒf[ƒ^‚Ì‰Šú‰»
+	//ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 	void init() {
-		// ”z—ñ‚ğ0‚Å‰Šú‰»
+		// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 		std::memset(data, 0, sizeof(T) * size);
 	}
 
-	// ƒRƒs[‘ã“ü‰‰Zq
+	// ã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­
 	DataArray & operator=(const DataArray & rhs) {
-		// ©•ª©g‚Ö‚Ì‘ã“ü‚Ì–h~
+		// è‡ªåˆ†è‡ªèº«ã¸ã®ä»£å…¥ã®é˜²æ­¢
 		if (this == &rhs) {
 			return *this;
 		}
-		// ©ƒIƒuƒWƒFƒNƒg‚ÌŒãn––
+		// è‡ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¾Œå§‹æœ«
 		clear();
-		// ƒƒ‚ƒŠ‚ÌŠm•Û
+		// ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 		resize(rhs.size);
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		std::memcpy(data, rhs.data, sizeof(T) * size);
-		// ¡–@‚ÌƒZƒbƒg
+		// å¯¸æ³•ã®ã‚»ãƒƒãƒˆ
 		setScale(rhs.scale);
-		// ©•ª‚ğ•Ô‚·
+		// è‡ªåˆ†ã‚’è¿”ã™
 		return *this;
 	}
 
-	//¡–@‚ÌƒZƒbƒg
+	//å¯¸æ³•ã®ã‚»ãƒƒãƒˆ
 	void setScale(double scale) {
 		this->scale = scale;
 	}
 
-	//ƒRƒ“ƒ\[ƒ‹•\¦
+	//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«è¡¨ç¤º
 	inline void Print() {
 		for (int j = 0; j < size; j++)
 			std::cout << data[j] << "\n";
@@ -284,21 +290,21 @@ typedef DataArray<float> FloatArray;
 typedef DataArray<double> DoubleArray;
 
 // 
-// ‚QŸŒ³ƒf[ƒ^Ši”[—pƒNƒ‰ƒX
+// ï¼’æ¬¡å…ƒãƒ‡ãƒ¼ã‚¿æ ¼ç´ç”¨ã‚¯ãƒ©ã‚¹
 //
 template < class T > class DataArray2D {
 public:
-	typedef T ValueType;	// ‰æ‘œ‚Ìƒf[ƒ^Œ^
+	typedef T ValueType;	// ç”»åƒã®ãƒ‡ãƒ¼ã‚¿å‹
 
-	int sizeX;	// X•ûŒüƒTƒCƒY
-	int sizeY;	// Y•ûŒüƒTƒCƒY
-	Double2D scale;	//ƒsƒNƒZƒ‹¡–@
-	T **data;	// ‰æ‘œƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^
+	int sizeX;	// Xæ–¹å‘ã‚µã‚¤ã‚º
+	int sizeY;	// Yæ–¹å‘ã‚µã‚¤ã‚º
+	Double2D scale;	//ãƒ”ã‚¯ã‚»ãƒ«å¯¸æ³•
+	T **data;	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray2D() : sizeX(0), sizeY(0), scale(0.0f, 0.0f), data(0) {}
 	DataArray2D(int sizeX, int sizeY) : sizeX(sizeX), sizeY(sizeY), scale(1.0f, 1.0f), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T*[this->sizeY];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray2D::DataArray2D(int sizeX, int sizeY)" << std::endl;
@@ -314,27 +320,27 @@ public:
 				//std::exit(1);
 				return;
 			}
-			// ”z—ñ‚ğ0‚Å‰Šú‰»
+			// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 			std::memset(data[y], 0, sizeof(T) * this->sizeX);
 		}
 	}
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~DataArray2D() { clear(); }
 
 	// newImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠm•ÛD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ï¼
 	//
-	// ˆø”
-	//  sizeX : X•ûŒüƒTƒCƒY
-	//  sizeY : Y•ûŒüƒTƒCƒY
+	// å¼•æ•°
+	//  sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
 	//
-	// –ß‚è’l
-	//  ¬Œ÷@0, ¸”s -1‚ğ•Ô‚·D
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸã€€0, å¤±æ•— -1ã‚’è¿”ã™ï¼
 	int newImage(int sizeX, int sizeY) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚é‚È‚ç‚ÎŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãªã‚‰ã°é–‹æ”¾ã™ã‚‹
 		if (data != 0) { clear(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T*[sizeY];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray2D::newImage(int sizeX, int sizeY)" << std::endl;
@@ -360,31 +366,31 @@ public:
 				//std::exit(1);
 				return 1;
 			}
-			// ”z—ñ‚ğ0‚Å‰Šú‰»
+			// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 			std::memset(data[y], 0, sizeof(T) * sizeX);
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
-		// ƒXƒP[ƒ‹‚Ìİ’è
+		// ã‚¹ã‚±ãƒ¼ãƒ«ã®è¨­å®š
 		this->scale.set(1.0f, 1.0f);
 		return 0;
 	}
 
 	// deleteImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•úD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ï¼
 	void deleteImage() { clear(); }
 
 	// resize
-	//   ”z—ñ‚ÌƒŠƒTƒCƒY
+	//   é…åˆ—ã®ãƒªã‚µã‚¤ã‚º
 	// 
-	//  ˆø”
-	//   sizeX : X•ûŒüƒTƒCƒY
-	//   sizeY : Y•ûŒüƒTƒCƒY
+	//  å¼•æ•°
+	//   sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
 	void resize(int sizeX, int sizeY) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚é‚È‚ç‚ÎŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãªã‚‰ã°é–‹æ”¾ã™ã‚‹
 		if (data != 0) { clear(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T*[sizeY];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray2D::resize(int sizeX, int sizeY)" << std::endl;
@@ -404,35 +410,35 @@ public:
 				//std::exit(1);
 				return;
 			}
-			// ”z—ñ‚ğ0‚Å‰Šú‰»
+			// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 			std::memset(data[y], 0, sizeof(T) * sizeX);
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
-		// ƒXƒP[ƒ‹‚Ìİ’è
+		// ã‚¹ã‚±ãƒ¼ãƒ«ã®è¨­å®š
 		this->scale.set(1.0f, 1.0f);
 	}
 
 	// clear
-	//  ƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•ú
+	//  ãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾
 	void clear() {
-		// ƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚È‚¢‚È‚ç‚ÎC‰½‚à‚µ‚È‚¢
+		// ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ãªã„ãªã‚‰ã°ï¼Œä½•ã‚‚ã—ãªã„
 		if (data == 0) { return; }
-		// ƒƒ‚ƒŠ‚ÌŠJ•ú
+		// ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 		for (int y = 0; y < sizeY; y++) {
 			delete[] data[y];
 		}
 		delete[] data;
-		// ƒƒ“ƒo•Ï”‚ğ‰Šú‰»
+		// ãƒ¡ãƒ³ãƒå¤‰æ•°ã‚’åˆæœŸåŒ–
 		data = 0;
 		sizeX = sizeY = 0;
 	}
 
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray2D(const DataArray2D & obj) : sizeX(obj.sizeX), sizeY(obj.sizeY), scale(obj.scale.X, obj.scale.Y), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new T*[sizeY];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray2D< T >::DataArray2D(const DataArray2D< T > & obj)" << std::endl;
@@ -449,7 +455,7 @@ public:
 				return;
 			}
 		}
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int y = 0; y < sizeY; y++) {
 			for (int x = 0; x < sizeX; x++) {
 				data[y][x] = obj.data[y][x];
@@ -457,39 +463,39 @@ public:
 		}
 	}
 
-	// ƒRƒs[‘ã“ü‰‰Zq
+	// ã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­
 	DataArray2D & operator=(const DataArray2D & rhs) {
-		// ©•ª©g‚Ö‚Ì‘ã“ü‚Ì–h~
+		// è‡ªåˆ†è‡ªèº«ã¸ã®ä»£å…¥ã®é˜²æ­¢
 		if (this == &rhs) { return *this; }
-		// ©ƒIƒuƒWƒFƒNƒg‚ÌŒãn––
+		// è‡ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¾Œå§‹æœ«
 		clear();
-		// ƒTƒCƒY‚ÌƒRƒs[
+		// ã‚µã‚¤ã‚ºã®ã‚³ãƒ”ãƒ¼
 		sizeX = rhs.sizeX;
 		sizeY = rhs.sizeY;
-		// ¡–@‚ÌƒRƒs[
+		// å¯¸æ³•ã®ã‚³ãƒ”ãƒ¼
 		scale.X = rhs.scale.X;
 		scale.Y = rhs.scale.Y;
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		resize(rhs.sizeX, rhs.sizeY);
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int y = 0; y < sizeY; y++) {
 			for (int x = 0; x < sizeX; x++) {
 				data[y][x] = rhs.data[y][x];
 			}
 		}
-		// ©•ª‚ğ‹A‚·
+		// è‡ªåˆ†ã‚’å¸°ã™
 		return *this;
 	}
 
-	//ƒf[ƒ^‚Ì‰Šú‰»
+	//ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 	void init() {
 		for (int y = 0; y < sizeY; y++) {
-			// ”z—ñ‚ğ0‚Å‰Šú‰»
+			// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 			std::memset(data[y], 0, sizeof(T) * sizeX);
 		}
 	}
 
-	//ƒsƒNƒZƒ‹¡–@‚ÌƒZƒbƒg
+	//ãƒ”ã‚¯ã‚»ãƒ«å¯¸æ³•ã®ã‚»ãƒƒãƒˆ
 	void setScale(const Double2D &scale) {
 		this->scale = scale;
 	}
@@ -498,7 +504,7 @@ public:
 		this->scale.Y = scaleY;
 	}
 
-	//ƒRƒ“ƒ\[ƒ‹•\¦
+	//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«è¡¨ç¤º
 	inline void Print() {
 		for (int i = 0; i < sizeY; i++) {
 			for (int j = 0; j < sizeX; j++)
@@ -513,7 +519,7 @@ private:
 typedef DataArray2D<bool> BoolImage2D;
 typedef DataArray2D<char> CharImage2D;
 typedef DataArray2D<unsigned char> UCharImage2D;
-typedef DataArray2D<short> ShortImage2D;	// 2ŸŒ³Dicom‰æ‘œ—p
+typedef DataArray2D<short> ShortImage2D;	// 2æ¬¡å…ƒDicomç”»åƒç”¨
 typedef DataArray2D<int> IntImage2D;
 typedef DataArray2D<unsigned int> UIntImage2D;
 typedef DataArray2D<float> FloatImage2D;
@@ -521,22 +527,22 @@ typedef DataArray2D<double> DoubleImage2D;
 
 
 //
-// 3ŸŒ³ƒf[ƒ^Ši”[—pƒNƒ‰ƒX
+// 3æ¬¡å…ƒãƒ‡ãƒ¼ã‚¿æ ¼ç´ç”¨ã‚¯ãƒ©ã‚¹
 //
 template< class T > class DataArray3D {
 public:
-	typedef T ValueType;	// ‰æ‘œ‚Ìƒf[ƒ^Œ^
+	typedef T ValueType;	// ç”»åƒã®ãƒ‡ãƒ¼ã‚¿å‹
 
-	int sizeX;	// X•ûŒüƒTƒCƒY
-	int sizeY;	// Y•ûŒüƒTƒCƒY
-	int sizeZ;	// Z•ûŒüƒTƒCƒY
-	Double3D scale;	// ƒ{ƒNƒZƒ‹¡–@
-	T ***data;	// ‰æ‘œƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^
+	int sizeX;	// Xæ–¹å‘ã‚µã‚¤ã‚º
+	int sizeY;	// Yæ–¹å‘ã‚µã‚¤ã‚º
+	int sizeZ;	// Zæ–¹å‘ã‚µã‚¤ã‚º
+	Double3D scale;	// ãƒœã‚¯ã‚»ãƒ«å¯¸æ³•
+	T ***data;	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray3D() : sizeX(0), sizeY(0), sizeZ(0), scale(1.0f, 1.0f, 1.0f), data(0) {}
 	DataArray3D(int sizeX, int sizeY, int sizeZ) : sizeX(sizeX), sizeY(sizeY), sizeZ(sizeZ), scale(1.0, 1.0, 1.0), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T**[this->sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray3D::DataArray3D(int sizeX, int sizeY, int sizeZ)" << std::endl;
@@ -560,29 +566,29 @@ public:
 					//std::exit(1);
 					return;
 				}
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * this->sizeX);
 			}
 		}
 	}
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~DataArray3D() { clear(); }
 
 	// newImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠm•ÛD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ï¼
 	//
-	// ˆø”
-	//  sizeX : X•ûŒüƒTƒCƒY
-	//  sizeY : Y•ûŒüƒTƒCƒY
-	//  sizeZ : Z•ûŒüƒTƒCƒY
+	// å¼•æ•°
+	//  sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeZ : Zæ–¹å‘ã‚µã‚¤ã‚º
 	//
-	// –ß‚è’l
-	//  ¬Œ÷@0, ¸”s -1‚ğ•Ô‚·D
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸã€€0, å¤±æ•— -1ã‚’è¿”ã™ï¼
 	int newImage(int sizeX, int sizeY, int sizeZ) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚é‚È‚ç‚ÎŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãªã‚‰ã°é–‹æ”¾ã™ã‚‹
 		if (data != 0) { deleteImage(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T**[sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray3D::newImage(int sizeX, int sizeY, int sizeZ)" << std::endl;
@@ -603,11 +609,11 @@ public:
 				if (data[z][y] == 0) {
 					return -1;
 				}
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * sizeX);
 			}
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
 		this->sizeZ = sizeZ;
@@ -616,20 +622,20 @@ public:
 	}
 
 	// deleteImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•úD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ï¼
 	void deleteImage() { clear(); }
 
 	// resize
-	//   ”z—ñ‚ÌƒŠƒTƒCƒY
+	//   é…åˆ—ã®ãƒªã‚µã‚¤ã‚º
 	// 
-	//  ˆø”
-	//   sizeX : X•ûŒüƒTƒCƒY
-	//   sizeY : Y•ûŒüƒTƒCƒY
-	//   sizeZ : Z•ûŒüƒTƒCƒY
+	//  å¼•æ•°
+	//   sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeZ : Zæ–¹å‘ã‚µã‚¤ã‚º
 	void resize(int sizeX, int sizeY, int sizeZ) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚é‚È‚ç‚ÎŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãªã‚‰ã°é–‹æ”¾ã™ã‚‹
 		if (data != 0) { clear(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new(std::nothrow) T**[sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! ShortImage3D::resize(int sizeX, int sizeY, int sizeZ)" << std::endl;
@@ -653,12 +659,12 @@ public:
 					//std::exit(1);
 					return;
 				}
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * sizeX);
 
 			}
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
 		this->sizeZ = sizeZ;
@@ -666,11 +672,11 @@ public:
 	}
 
 	// clear
-	//  ƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•ú
+	//  ãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾
 	void clear() {
-		// ƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚È‚¢‚È‚ç‚ÎC‰½‚à‚µ‚È‚¢
+		// ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ãªã„ãªã‚‰ã°ï¼Œä½•ã‚‚ã—ãªã„
 		if (data == 0) { return; }
-		// ƒƒ‚ƒŠ‚ÌŠJ•ú
+		// ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				delete[] data[z][y];
@@ -678,15 +684,15 @@ public:
 			delete[] data[z];
 		}
 		delete[] data;
-		// ƒƒ“ƒo•Ï”‚Ì‰Šú‰»
+		// ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–
 		data = 0;
 		this->scale.set(1.0f, 1.0f, 1.0f);
 		sizeX = sizeY = sizeZ = 0;
 	}
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray3D(const DataArray3D & obj) : sizeX(obj.sizeX), sizeY(obj.sizeY), sizeZ(obj.sizeZ), scale(obj.scale), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new T**[sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! ShortImage3D::DataArray3D(const DataArray3D & obj)" << std::endl;
@@ -712,7 +718,7 @@ public:
 				}
 			}
 		}
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				for (int x = 0; x < sizeX; x++) {
@@ -722,21 +728,21 @@ public:
 		}
 	}
 
-	// ƒRƒs[‘ã“ü‰‰Zq
+	// ã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­
 	DataArray3D & operator=(const DataArray3D & rhs) {
-		// ©•ª©g‚Ö‚Ì‘ã“ü‚Ì–h~
+		// è‡ªåˆ†è‡ªèº«ã¸ã®ä»£å…¥ã®é˜²æ­¢
 		if (this == &rhs) { return *this; }
-		// ©ƒIƒuƒWƒFƒNƒg‚ÌŒãn––
+		// è‡ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¾Œå§‹æœ«
 		clear();
-		// ƒTƒCƒY‚ÌƒRƒs[
+		// ã‚µã‚¤ã‚ºã®ã‚³ãƒ”ãƒ¼
 		sizeX = rhs.sizeX;
 		sizeY = rhs.sizeY;
 		sizeZ = rhs.sizeZ;
-		// ƒ{ƒNƒZƒ‹¡–@‚ÌƒRƒs[
+		// ãƒœã‚¯ã‚»ãƒ«å¯¸æ³•ã®ã‚³ãƒ”ãƒ¼
 		scale = rhs.scale;
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		resize(rhs.sizeX, rhs.sizeY, rhs.sizeZ);
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				for (int x = 0; x < sizeX; x++) {
@@ -744,26 +750,26 @@ public:
 				}
 			}
 		}
-		// ©•ª‚ğ‹A‚·
+		// è‡ªåˆ†ã‚’å¸°ã™
 		return *this;
 	}
 
-	//ƒf[ƒ^‚Ì‰Šú‰»
+	//ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 	void init() {
 		for (int z = 0; z < this->sizeZ; z++) {
 			for (int y = 0; y < this->sizeY; y++) {
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * this->sizeX);
 			}
 		}
 	}
 
-	//ƒ{ƒNƒZƒ‹ƒXƒP[ƒ‹‚ÌƒZƒbƒg
+	//ãƒœã‚¯ã‚»ãƒ«ã‚¹ã‚±ãƒ¼ãƒ«ã®ã‚»ãƒƒãƒˆ
 	void setScale(const Double3D &scale) {
 		this->scale = scale;
 	}
 
-	//¡–@İ’è
+	//å¯¸æ³•è¨­å®š
 	void setScale(double scaleX, double scaleY, double scaleZ) {
 		this->scale.set(scaleX, scaleY, scaleZ);
 	}
@@ -773,7 +779,7 @@ private:
 typedef DataArray3D<bool> BoolImage3D;
 typedef DataArray3D<char> CharImage3D;
 typedef DataArray3D<unsigned char> UCharImage3D;
-typedef DataArray3D<short> ShortImage3D;	// 3ŸŒ³Dicom‰æ‘œ—p
+typedef DataArray3D<short> ShortImage3D;	// 3æ¬¡å…ƒDicomç”»åƒç”¨
 typedef DataArray3D<int> IntImage3D;
 typedef DataArray3D<unsigned int> UIntImage3D;
 typedef DataArray3D<float> FloatImage3D;
@@ -781,25 +787,25 @@ typedef DataArray3D<double> DoubleImage3D;
 
 
 ////////////////////////////////////////////////////////////////////////////
-//“ª•”ˆÊ’u‡‚í‚¹—p
+//é ­éƒ¨ä½ç½®åˆã‚ã›ç”¨
 
 template< class T > class DataArray_verK_3D {
 public:
-	typedef T ValueType;	// ‰æ‘œ‚Ìƒf[ƒ^Œ^
+	typedef T ValueType;	// ç”»åƒã®ãƒ‡ãƒ¼ã‚¿å‹
 
-	int sizeX;	// X•ûŒüƒTƒCƒY
-	int sizeY;	// Y•ûŒüƒTƒCƒY
-	int sizeZ;	// Z•ûŒüƒTƒCƒY
+	int sizeX;	// Xæ–¹å‘ã‚µã‚¤ã‚º
+	int sizeY;	// Yæ–¹å‘ã‚µã‚¤ã‚º
+	int sizeZ;	// Zæ–¹å‘ã‚µã‚¤ã‚º
 	int centerX;
 	int centerY;
 	int centerZ;
 	int VOISize;
-	T ***data;	// ‰æ‘œƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^
+	T ***data;	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray_verK_3D() : sizeX(0), sizeY(0), sizeZ(0), data(0) {}
 	DataArray_verK_3D(int sizeX, int sizeY, int sizeZ) : sizeX(sizeX), sizeY(sizeY), sizeZ(sizeZ), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new T**[this->sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! DataArray3D::DataArray3D(int sizeX, int sizeY, int sizeZ)" << std::endl;
@@ -817,44 +823,44 @@ public:
 					std::cerr << "Memory allocation error! DataArray3D::DataArray3D(int sizeX, int sizeY, int sizeZ)" << std::endl;
 					std::exit(1);
 				}
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * this->sizeX);
 			}
 		}
 	}
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~DataArray_verK_3D() { clear(); }
 
 	// newImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠm•ÛD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ï¼
 	//
-	// ˆø”
-	//  sizeX : X•ûŒüƒTƒCƒY
-	//  sizeY : Y•ûŒüƒTƒCƒY
-	//  sizeZ : Z•ûŒüƒTƒCƒY
+	// å¼•æ•°
+	//  sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeZ : Zæ–¹å‘ã‚µã‚¤ã‚º
 	//
-	// –ß‚è’l
-	//  ¬Œ÷@0, ¸”s -1‚ğ•Ô‚·D
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸã€€0, å¤±æ•— -1ã‚’è¿”ã™ï¼
 	int newImage(int sizeX, int sizeY, int sizeZ) {
 		newImage(sizeX, sizeY, sizeZ, 0, 0, 0, 0);
 		return 0;
 	}
 
 	// newImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠm•ÛD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ï¼
 	//
-	// ˆø”
-	//  sizeX : X•ûŒüƒTƒCƒY
-	//  sizeY : Y•ûŒüƒTƒCƒY
-	//  sizeZ : Z•ûŒüƒTƒCƒY
+	// å¼•æ•°
+	//  sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeZ : Zæ–¹å‘ã‚µã‚¤ã‚º
 	//
-	// –ß‚è’l
-	//  ¬Œ÷@0, ¸”s -1‚ğ•Ô‚·D
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸã€€0, å¤±æ•— -1ã‚’è¿”ã™ï¼
 	int newImage(int sizeX, int sizeY, int sizeZ, int centerX, int centerY, int centerZ, int VOISize) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚é‚È‚ç‚ÎŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãªã‚‰ã°é–‹æ”¾ã™ã‚‹
 		if (data != 0) { deleteImage(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new T**[sizeZ];
 		if (data == 0) {
 			return -1;
@@ -869,11 +875,11 @@ public:
 				if (data[z][y] == 0) {
 					return -1;
 				}
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * sizeX);
 			}
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
 		this->sizeZ = sizeZ;
@@ -891,31 +897,31 @@ public:
 		this->VOISize = VOISize;
 	}
 	// deleteImage
-	//  ‰æ‘œƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•úD
+	//  ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ï¼
 	void deleteImage() { clear(); }
 
 	// resize
-	//   ”z—ñ‚ÌƒŠƒTƒCƒY
+	//   é…åˆ—ã®ãƒªã‚µã‚¤ã‚º
 	// 
-	//  ˆø”
-	//   sizeX : X•ûŒüƒTƒCƒY
-	//   sizeY : Y•ûŒüƒTƒCƒY
-	//   sizeZ : Z•ûŒüƒTƒCƒY
+	//  å¼•æ•°
+	//   sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeZ : Zæ–¹å‘ã‚µã‚¤ã‚º
 	void resize(int sizeX, int sizeY, int sizeZ) {
 		resize(sizeX, sizeY, sizeZ, 0, 0, 0, 0);
 	}
 
 	// resize
-	//   ”z—ñ‚ÌƒŠƒTƒCƒY
+	//   é…åˆ—ã®ãƒªã‚µã‚¤ã‚º
 	// 
-	//  ˆø”
-	//   sizeX : X•ûŒüƒTƒCƒY
-	//   sizeY : Y•ûŒüƒTƒCƒY
-	//   sizeZ : Z•ûŒüƒTƒCƒY
+	//  å¼•æ•°
+	//   sizeX : Xæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeY : Yæ–¹å‘ã‚µã‚¤ã‚º
+	//   sizeZ : Zæ–¹å‘ã‚µã‚¤ã‚º
 	void resize(int sizeX, int sizeY, int sizeZ, int centerX, int centerY, int centerZ, int VOISize) {
-		// ‚·‚Å‚Éƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚é‚È‚ç‚ÎŠJ•ú‚·‚é
+		// ã™ã§ã«ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãªã‚‰ã°é–‹æ”¾ã™ã‚‹
 		if (data != 0) { clear(); }
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new T**[sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! ShortImage3D::resize(int sizeX, int sizeY, int sizeZ)" << std::endl;
@@ -933,12 +939,12 @@ public:
 					std::cerr << "Memory allocation error! ShortImage3D::resize(int sizeX, int sizeY, int sizeZ)" << std::endl;
 					std::exit(1);
 				}
-				// ”z—ñ‚ğ0‚Å‰Šú‰»
+				// é…åˆ—ã‚’0ã§åˆæœŸåŒ–
 				std::memset(data[z][y], 0, sizeof(T) * sizeX);
 
 			}
 		}
-		// ƒTƒCƒY‚Ìİ’è
+		// ã‚µã‚¤ã‚ºã®è¨­å®š
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
 		this->sizeZ = sizeZ;
@@ -949,11 +955,11 @@ public:
 	}
 
 	// clear
-	//  ƒf[ƒ^‚Ìƒƒ‚ƒŠ‚ğŠJ•ú
+	//  ãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾
 	void clear() {
-		// ƒƒ‚ƒŠ‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚È‚¢‚È‚ç‚ÎC‰½‚à‚µ‚È‚¢
+		// ãƒ¡ãƒ¢ãƒªãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ãªã„ãªã‚‰ã°ï¼Œä½•ã‚‚ã—ãªã„
 		if (data == 0) { return; }
-		// ƒƒ‚ƒŠ‚ÌŠJ•ú
+		// ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				delete[] data[z][y];
@@ -961,14 +967,14 @@ public:
 			delete[] data[z];
 		}
 		delete[] data;
-		// ƒƒ“ƒo•Ï”‚Ì‰Šú‰»
+		// ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–
 		data = 0;
 		sizeX = sizeY = sizeZ = 0;
 	}
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DataArray_verK_3D(const DataArray_verK_3D & obj) : sizeX(obj.sizeX), sizeY(obj.sizeY), sizeZ(obj.sizeZ), data(0) {
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		data = new T**[sizeZ];
 		if (data == 0) {
 			std::cerr << "Memory allocation error! ShortImage3D::DataArray3D(const DataArray3D & obj)" << std::endl;
@@ -988,7 +994,7 @@ public:
 				}
 			}
 		}
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				for (int x = 0; x < sizeX; x++) {
@@ -998,18 +1004,18 @@ public:
 		}
 	}
 
-	// ƒRƒs[‘ã“ü‰‰Zq
+	// ã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­
 	DataArray_verK_3D & operator=(const DataArray_verK_3D & rhs) {
-		// ©•ª©g‚Ö‚Ì‘ã“ü‚Ì–h~
+		// è‡ªåˆ†è‡ªèº«ã¸ã®ä»£å…¥ã®é˜²æ­¢
 		if (this == &rhs) { return *this; }
-		// ©ƒIƒuƒWƒFƒNƒg‚ÌŒãn––
+		// è‡ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¾Œå§‹æœ«
 		clear();
-		// ƒTƒCƒY‚ÌƒRƒs[
+		// ã‚µã‚¤ã‚ºã®ã‚³ãƒ”ãƒ¼
 		sizeX = rhs.sizeX;
 		sizeY = rhs.sizeY;
-		// ƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		resize(rhs.sizeX, rhs.sizeY, rhs.sizeZ, rhs.centerX, rhs.centerY, rhs.centerZ, rhs.VOISize);
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				for (int x = 0; x < sizeX; x++) {
@@ -1017,26 +1023,26 @@ public:
 				}
 			}
 		}
-		// ©•ª‚ğ‹A‚·
+		// è‡ªåˆ†ã‚’å¸°ã™
 		return *this;
 	}
 private:
 };
 
 
-// ‚æ‚­g‚¤‰æ‘œ”z—ñ‚Ítypedef‚µ‚Ä‚¨‚­
-typedef DataArray_verK_3D< short > ShortImage3DK; // ƒAƒtƒBƒ“—p‚Éì‚Á‚½‚æ`‚ñ
+// ã‚ˆãä½¿ã†ç”»åƒé…åˆ—ã¯typedefã—ã¦ãŠã
+typedef DataArray_verK_3D< short > ShortImage3DK; // ã‚¢ãƒ•ã‚£ãƒ³ç”¨ã«ä½œã£ãŸã‚ˆï½ã‚“
 
-//“ª•”ˆÊ’u‡‚í‚¹—p
+//é ­éƒ¨ä½ç½®åˆã‚ã›ç”¨
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //---------------------------------------------------------------------------------------------------
-// Dicom‰æ‘œ“Ç‚İ‚İˆ—ŠÖŒW
-//  ShorImage2D‚Ì‚İ‚É‘Î‰
+// Dicomç”»åƒèª­ã¿è¾¼ã¿å‡¦ç†é–¢ä¿‚
+//  ShorImage2Dã®ã¿ã«å¯¾å¿œ
 //---------------------------------------------------------------------------------------------------
 
 //
-// DICOM‰æ‘œî•ñ
+// DICOMç”»åƒæƒ…å ±
 //
 class DicomImageInfo {
 public:
@@ -1057,126 +1063,126 @@ public:
 		this->windowCenter = 0;
 		this->windowWidth = 0;
 	}
-	double thickness;		// 0x0018 0x0050 ƒXƒ‰ƒCƒXŒú
-	int seriesNumber;		// 0x0020 0x0011 ƒVƒŠ[ƒY”Ô†
-	int instanceNumber;		// 0x0020 0x0013 ‰æ‘œ”Ô†
-	unsigned short rows;	// 0x0028 0x0010 ‰æ‘œ‚ÌYƒTƒCƒY
-	unsigned short columns;	// 0x0028 0x0011 ‰æ‘œ‚ÌXƒTƒCƒY
-	double pixelSpacingX;	// 0x0028 0x0030 ‰æ‘f‚ÌXƒTƒCƒY
-	double pixelSpacingY;	// 0x0028 0x0030 ‰æ‘f‚ÌYƒTƒCƒY
-	int windowCenter;		// 0x0028 0x1050 ƒEƒBƒ“ƒhƒE’†S 
-	int windowWidth;		// 0x0028 0x1051 ƒEƒBƒ“ƒhƒE•
+	double thickness;		// 0x0018 0x0050 ã‚¹ãƒ©ã‚¤ã‚¹åš
+	int seriesNumber;		// 0x0020 0x0011 ã‚·ãƒªãƒ¼ã‚ºç•ªå·
+	int instanceNumber;		// 0x0020 0x0013 ç”»åƒç•ªå·
+	unsigned short rows;	// 0x0028 0x0010 ç”»åƒã®Yã‚µã‚¤ã‚º
+	unsigned short columns;	// 0x0028 0x0011 ç”»åƒã®Xã‚µã‚¤ã‚º
+	double pixelSpacingX;	// 0x0028 0x0030 ç”»ç´ ã®Xã‚µã‚¤ã‚º
+	double pixelSpacingY;	// 0x0028 0x0030 ç”»ç´ ã®Yã‚µã‚¤ã‚º
+	int windowCenter;		// 0x0028 0x1050 ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä¸­å¿ƒ 
+	int windowWidth;		// 0x0028 0x1051 ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å¹…
 };
 
 //
-// DICOM‚Ì“Ç‚İ‚İ
+// DICOMã®èª­ã¿è¾¼ã¿
 //
 class DicomReader {
 public:
-	// ‰æ‘œî•ñ
+	// ç”»åƒæƒ…å ±
 	DicomImageInfo info;
 
 	DicomReader() :
 		ifs_(), prefix(NULL), implicitVR_(true), littleEndian_(true), sizeX_(0), sizeY_(0) {}
 
-	// Dicom‰æ‘œ‚Ì“Ç‚İæ‚è
+	// Dicomç”»åƒã®èª­ã¿å–ã‚Š
 	bool read(std::string fileName, ShortImage2D * dcm);
 
-	// Dicom‰æ‘œî•ñ‚Ìæ“¾
+	// Dicomç”»åƒæƒ…å ±ã®å–å¾—
 	bool getInfo(std::string fileName, DicomImageInfo * info);
 
 private:
-	std::ifstream ifs_;	// “ü—Íƒtƒ@ƒCƒ‹ƒXƒgƒŠ[ƒ€
-	bool prefix;		//ƒvƒŠƒtƒBƒNƒX‚ª‚ ‚é‚©‚Ç‚¤‚©
-	bool implicitVR_;	// ˆÃ–Ù“IVR‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
-	bool littleEndian_;	// ƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ“‚©‚Ç‚¤‚©ƒtƒ‰ƒO
-	int sizeX_, sizeY_; // ‰æ‘œƒTƒCƒY
+	std::ifstream ifs_;	// å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+	bool prefix;		//ãƒ—ãƒªãƒ•ã‚£ã‚¯ã‚¹ãŒã‚ã‚‹ã‹ã©ã†ã‹
+	bool implicitVR_;	// æš—é»™çš„VRã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
+	bool littleEndian_;	// ãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ã‹ã©ã†ã‹ãƒ•ãƒ©ã‚°
+	int sizeX_, sizeY_; // ç”»åƒã‚µã‚¤ã‚º
 
-	// ƒ^ƒO‚Ì“Ç‚İæ‚è
+	// ã‚¿ã‚°ã®èª­ã¿å–ã‚Š
 	unsigned int getTag();
 
-	// “]‘—\•¶‚Ì“Ç‚İæ‚è
-	// implicitVR_, littleEndian_‚Ìƒtƒ‰ƒO‚ğİ’è‚·‚é
+	// è»¢é€æ§‹æ–‡ã®èª­ã¿å–ã‚Š
+	// implicitVR_, littleEndian_ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã™ã‚‹
 	void setTransferSyntax(std::string transferSyntax);
 
-	// ’l’·‚³‚Ìæ“¾
+	// å€¤é•·ã•ã®å–å¾—
 	unsigned int getValueLength() {
 		int dummy = 0;
 		return getValueLength(&dummy);
 	}
 	unsigned int getValueLength(int * byte);
 
-	// •¶š—ñ‚Æ‚µ‚Ä“Ç‚İ‚Ş
+	// æ–‡å­—åˆ—ã¨ã—ã¦èª­ã¿è¾¼ã‚€
 	std::string getStr(int valueLength);
 
-	// DICOMƒtƒ@ƒCƒ‹ƒƒ^î•ñ‚ğƒXƒLƒƒƒ“‚·‚é
+	// DICOMãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ã‚¿æƒ…å ±ã‚’ã‚¹ã‚­ãƒ£ãƒ³ã™ã‚‹
 	bool scanDicomMetaInfo();
 
-	// DICOMƒf[ƒ^‚Ì“Ç‚İæ‚è
+	// DICOMãƒ‡ãƒ¼ã‚¿ã®èª­ã¿å–ã‚Š
 	bool scan();
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^CƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 	DicomReader(const DicomReader & obj);
 	DicomReader & operator=(const DicomReader & rhs);
 };
 
 
 //---------------------------------------------------------------------------------------------------
-// Bitmap‰æ‘œ“üo—ÍŠÖŒW
-//  24ƒrƒbƒgƒtƒ‹ƒJƒ‰[‚É‚Ì‚İ‘Î‰D
-//  RGBConverter‚ÅDataArray2D‚ğRGBImageŒ^‚É•ÏŠ·‚µ‚Ä‚©‚ço—Í‚·‚é‚±‚ÆD
-//  ShortImage2D‚Í•ÏŠ·‚¹‚¸‚Éƒ‚ƒmƒNƒ‰æ‘œ‚Åo—Í‚·‚é‚±‚Æ‚à‰Â”\D
-//  F‚Ã‚¯‚µ‚½‚¢ê‡‚ÍRGBConverter‚ÅRGBImage‚É•ÏŠ·‚·‚é‚±‚ÆD
+// Bitmapç”»åƒå…¥å‡ºåŠ›é–¢ä¿‚
+//  24ãƒ“ãƒƒãƒˆãƒ•ãƒ«ã‚«ãƒ©ãƒ¼ã«ã®ã¿å¯¾å¿œï¼
+//  RGBConverterã§DataArray2Dã‚’RGBImageå‹ã«å¤‰æ›ã—ã¦ã‹ã‚‰å‡ºåŠ›ã™ã‚‹ã“ã¨ï¼
+//  ShortImage2Dã¯å¤‰æ›ã›ãšã«ãƒ¢ãƒã‚¯ãƒ­ç”»åƒã§å‡ºåŠ›ã™ã‚‹ã“ã¨ã‚‚å¯èƒ½ï¼
+//  è‰²ã¥ã‘ã—ãŸã„å ´åˆã¯RGBConverterã§RGBImageã«å¤‰æ›ã™ã‚‹ã“ã¨ï¼
 //---------------------------------------------------------------------------------------------------
 
 //
-// Bmp–¼‘O‹óŠÔ
-//  BitmapŠÖŒW‚Ìˆ—‚Å—p‚¢‚é‚à‚Ì‚ğ‚Ü‚Æ‚ß‚Ä‚¢‚é
+// Bmpåå‰ç©ºé–“
+//  Bitmapé–¢ä¿‚ã®å‡¦ç†ã§ç”¨ã„ã‚‹ã‚‚ã®ã‚’ã¾ã¨ã‚ã¦ã„ã‚‹
 //
 namespace Bmp {
-	// RGB‰æ‘œ‚ÌÅ‘å‹P“x’l
+	// RGBç”»åƒã®æœ€å¤§è¼åº¦å€¤
 	const int RGBMaxIntensity = 255;
 
-	// BitmapInfoHeader\‘¢‘Ì
+	// BitmapInfoHeaderæ§‹é€ ä½“
 	struct BitmapInfoHeader {
-		unsigned long biSize;			// î•ñƒwƒbƒ_ƒTƒCƒYibytej
-		long biWidth;					// ‰æ‘œ‚Ì•ipixelj
-		long biHeight;					// ‰æ‘œ‚Ì‚‚³ipixelj
-		unsigned short biPlanes;		// ƒvƒŒ[ƒ“”ií‚É1j
-		unsigned short biBitCount;		// Fƒrƒbƒg”
-		unsigned long biCompression;	// ˆ³kŒ`®
-		unsigned long biSizeImage;		// ‰æ‘œƒf[ƒ^ƒTƒCƒYibytej
-		long biXPelsPerMeter;			// …•½‰ğ‘œ“x
-		long biYPelsPerMeter;			// ‚’¼‰ğ‘œ“x
-		unsigned long biClrUsed;		// Ši”[ƒpƒŒƒbƒg”[g—pF”]
-		unsigned long biClrImportant;	// d—vF”
+		unsigned biSize;				// æƒ…å ±ãƒ˜ãƒƒãƒ€ã‚µã‚¤ã‚ºï¼ˆbyteï¼‰
+		unsigned biWidth;				// ç”»åƒã®å¹…ï¼ˆpixelï¼‰
+		unsigned biHeight;				// ç”»åƒã®é«˜ã•ï¼ˆpixelï¼‰
+		unsigned short biPlanes;		// ãƒ—ãƒ¬ãƒ¼ãƒ³æ•°ï¼ˆå¸¸ã«1ï¼‰
+		unsigned short biBitCount;		// è‰²ãƒ“ãƒƒãƒˆæ•°
+		unsigned biCompression;			// åœ§ç¸®å½¢å¼
+		unsigned biSizeImage;			// ç”»åƒãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºï¼ˆbyteï¼‰
+		unsigned biXPelsPerMeter;		// æ°´å¹³è§£åƒåº¦
+		unsigned biYPelsPerMeter;		// å‚ç›´è§£åƒåº¦
+		unsigned biClrUsed;				// æ ¼ç´ãƒ‘ãƒ¬ãƒƒãƒˆæ•°[ä½¿ç”¨è‰²æ•°]
+		unsigned biClrImportant;		// é‡è¦è‰²æ•°
 	};
 
-	// BitmapFileHeader\‘¢‘Ì
+	// BitmapFileHeaderæ§‹é€ ä½“
 	struct BitmapFileHeader {
-		unsigned short bfType;		// ƒtƒ@ƒCƒ‹ƒ^ƒCƒvD'BM'
-		unsigned long bfSize;		// ƒtƒ@ƒCƒ‹ƒTƒCƒYibytej
-		unsigned short bfReserved1;	// —\–ñ—Ìˆæ1Dí‚É0D
-		unsigned short bfReserved2;	// —\–ñ—Ìˆæ2Dí‚É0D
-		unsigned long bfOffBits;	// ƒtƒ@ƒCƒ‹æ“ª‚©‚ç‰æ‘œƒf[ƒ^‚Ü‚Å‚ÌƒIƒtƒZƒbƒgibytej
+		unsigned short bfType;		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—ï¼'BM'
+		unsigned bfSize;			// ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºï¼ˆbyteï¼‰
+		unsigned short bfReserved1;	// äºˆç´„é ˜åŸŸ1ï¼å¸¸ã«0ï¼
+		unsigned short bfReserved2;	// äºˆç´„é ˜åŸŸ2ï¼å¸¸ã«0ï¼
+		unsigned bfOffBits;			// ãƒ•ã‚¡ã‚¤ãƒ«å…ˆé ­ã‹ã‚‰ç”»åƒãƒ‡ãƒ¼ã‚¿ã¾ã§ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆï¼ˆbyteï¼‰
 	};
 };
 
 //
-// RGBŒ^
+// RGBå‹
 //
 class RGBType {
 public:
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	RGBType(unsigned char r = 0, unsigned char g = 0, unsigned char b = 0) : r(r), g(g), b(b) {}
-	// ’l‚Ìİ’è
+	// å€¤ã®è¨­å®š
 	void setElement(unsigned char color) { r = g = b = color; }
 	void setElement(unsigned char r, unsigned char g, unsigned char b) {
 		this->r = r;
 		this->g = g;
 		this->b = b;
 	}
-	// RGB’l
+	// RGBå€¤
 	unsigned char b;
 	unsigned char g;
 	unsigned char r;
@@ -1185,36 +1191,36 @@ private:
 };
 
 //
-// 2ŸŒ³RGB‰æ‘œ”z—ñ
+// 2æ¬¡å…ƒRGBç”»åƒé…åˆ—
 //
 typedef DataArray2D< RGBType > RGBImage;
 typedef DataArray3D< RGBType > RGBImage3D;
 
 //
-// DataArray2D‚©‚çRGBImage‚Ö‚Ì•ÏŠ·
+// DataArray2Dã‹ã‚‰RGBImageã¸ã®å¤‰æ›
 //
 class RGBConverter {
 public:
 	RGBConverter() {}
 
-	// DataArray2D‚©‚çRGBImage‚Ö‚Ì•ÏŠ·
-	//  DataArray2D“à‚Ìƒf[ƒ^’l‚Ì•ÏŠ·”ÍˆÍ‚ğw’è‚µ‚Ä•ÏŠ·‚·‚éD
+	// DataArray2Dã‹ã‚‰RGBImageã¸ã®å¤‰æ›
+	//  DataArray2Då†…ã®ãƒ‡ãƒ¼ã‚¿å€¤ã®å¤‰æ›ç¯„å›²ã‚’æŒ‡å®šã—ã¦å¤‰æ›ã™ã‚‹ï¼
 	// 
-	// ˆø”
-	// @min, max : •ÏŠ·‚·‚éDataArray2D‚Ì’l‚Ì”ÍˆÍ‚ÌÅ¬’lEÅ‘å’l
+	// å¼•æ•°
+	// ã€€min, max : å¤‰æ›ã™ã‚‹DataArray2Dã®å€¤ã®ç¯„å›²ã®æœ€å°å€¤ãƒ»æœ€å¤§å€¤
 	template< class T > void convert(DataArray2D< T > * from, RGBImage * to, T min, T max) {
-		// ƒXƒP[ƒŠƒ“ƒO‚Ìƒpƒ‰ƒ[ƒ^‚ğ‹‚ß‚é
+		// ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’æ±‚ã‚ã‚‹
 		double slop = Bmp::RGBMaxIntensity / static_cast<double>(max - min);
 		double intercept = -slop * min;
-		// ‰æ‘œ‚ÌƒŠƒTƒCƒY
+		// ç”»åƒã®ãƒªã‚µã‚¤ã‚º
 		if ((from->sizeX != to->sizeX) || (from->sizeY != to->sizeX)) {
 			to->resize(from->sizeX, from->sizeY);
 		}
-		// •ÏŠ·
+		// å¤‰æ›
 		for (int y = 0; y < from->sizeY; y++) {
 			for (int x = 0; x < from->sizeX; x++) {
 				double temp = slop * from->data[y][x] + intercept;
-				unsigned char color = static_cast<unsigned char>(temp + ((temp >= 0.0) ? 0.5 : -0.5)); // lÌŒÜ“ü
+				unsigned char color = static_cast<unsigned char>(temp + ((temp >= 0.0) ? 0.5 : -0.5)); // å››æ¨äº”å…¥
 				if (color > Bmp::RGBMaxIntensity) {
 					color = Bmp::RGBMaxIntensity;
 				}
@@ -1226,11 +1232,11 @@ public:
 		}
 	}
 
-	// DataArray2D‚©‚çRGBImage‚Ö‚Ì•ÏŠ·
-	//  from“à‚ÌÅ¬’lEÅ‘å’l‚ğ“Ç‚İæ‚Á‚ÄC‚»‚Ì”ÍˆÍ‚ÅRGB‚É•ÏŠ·‚·‚éD
+	// DataArray2Dã‹ã‚‰RGBImageã¸ã®å¤‰æ›
+	//  fromå†…ã®æœ€å°å€¤ãƒ»æœ€å¤§å€¤ã‚’èª­ã¿å–ã£ã¦ï¼Œãã®ç¯„å›²ã§RGBã«å¤‰æ›ã™ã‚‹ï¼
 	template< class T > void convert(DataArray2D< T > * from, RGBImage * to) {
 		T max = from->data[0][0], min = from->data[0][0];
-		// Å‘åEÅ¬’l‚ğŒ©‚Â‚¯‚é
+		// æœ€å¤§ãƒ»æœ€å°å€¤ã‚’è¦‹ã¤ã‘ã‚‹
 		for (int y = 0; y < from->sizeY; y++) {
 			for (int x = 0; x < from->sizeX; x++) {
 				T value = from->data[y][x];
@@ -1242,11 +1248,11 @@ public:
 				}
 			}
 		}
-		// •ÏŠ·
+		// å¤‰æ›
 		convert(from, to, min, max);
 	}
 
-	// DataArray3D‚©‚çRGBImage‚Ö‚Ì•ÏŠ·
+	// DataArray3Dã‹ã‚‰RGBImageã¸ã®å¤‰æ›
 	template< class T > void convert(DataArray3D< T > * from, RGBImage * to, T max, T min) {
 
 		DataArray2D<T> tmp(from->sizeX, from->sizeY);
@@ -1256,19 +1262,20 @@ public:
 			for (int j = 0; j < from->sizeY; j++)
 				for (int i = 0; i < from->sizeX; i++) tmp.data[j][i] = from->data[k][j][i];
 
-			// •ÏŠ·
+			// å¤‰æ›
 			convert(&tmp, &tmp2, min, max);
 			for (int j = 0; j < from->sizeY; j++)
-				for (int i = 0; i < from->sizeX; i++) to->data[k][j][i] = tmp2.data[j][i];
+				for (int i = 0; i < from->sizeX; i++) to->data[j][i] = tmp2.data[j][i];
+				//for (int i = 0; i < from->sizeX; i++) to->data[k][j][i] = tmp2.data[j][i];
 		}
 
 	}
 
-	// DataArray3D‚©‚çRGBImage‚Ö‚Ì•ÏŠ·
-	//  from“à‚ÌÅ¬’lEÅ‘å’l‚ğ“Ç‚İæ‚Á‚ÄC‚»‚Ì”ÍˆÍ‚ÅRGB‚É•ÏŠ·‚·‚éD
+	// DataArray3Dã‹ã‚‰RGBImageã¸ã®å¤‰æ›
+	//  fromå†…ã®æœ€å°å€¤ãƒ»æœ€å¤§å€¤ã‚’èª­ã¿å–ã£ã¦ï¼Œãã®ç¯„å›²ã§RGBã«å¤‰æ›ã™ã‚‹ï¼
 	template< class T > void convert(DataArray3D< T > * from, RGBImage * to) {
 		T max = from->data[0][0][0], min = from->data[0][0][0];
-		// Å‘åEÅ¬’l‚ğŒ©‚Â‚¯‚é		
+		// æœ€å¤§ãƒ»æœ€å°å€¤ã‚’è¦‹ã¤ã‘ã‚‹		
 		for (int z = 0; z < from->sizeZ; z++) {
 			for (int y = 0; y < from->sizeY; y++) {
 				for (int x = 0; x < from->sizeX; x++) {
@@ -1282,7 +1289,7 @@ public:
 				}
 			}
 		}
-		// •ÏŠ·
+		// å¤‰æ›
 		convert(from, to, min, max);
 	}
 
@@ -1290,31 +1297,31 @@ public:
 
 private:
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^CƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 	RGBConverter(const RGBConverter & obj);
 	RGBConverter & operator=(const RGBConverter & rhs);
 };
 
 //
-// Bitmap‰æ‘œ‚Ì“Ç‚İ‚İ
+// Bitmapç”»åƒã®èª­ã¿è¾¼ã¿
 //
 class BitmapReader {
 public:
 	BitmapReader() {}
 
 	// read
-	//  Bitmap‰æ‘œ‚Ì“Ç‚İ‚İ
+	//  Bitmapç”»åƒã®èª­ã¿è¾¼ã¿
 	//
-	// ˆø”
-	//  fileName	: ‰æ‘œƒtƒ@ƒCƒ‹–¼
-	//  img			: ‰æ‘œ”z—ñ
+	// å¼•æ•°
+	//  fileName	: ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«å
+	//  img			: ç”»åƒé…åˆ—
 	//
-	// •Ô‚è’l
-	//  “Ç‚İ‚İ¬Œ÷‚ÅtrueC“Ç‚İ‚İ¸”s‚Åfalse‚ğ•Ô‚·
+	// è¿”ã‚Šå€¤
+	//  èª­ã¿è¾¼ã¿æˆåŠŸã§trueï¼Œèª­ã¿è¾¼ã¿å¤±æ•—ã§falseã‚’è¿”ã™
 	bool read(std::string fileName, RGBImage *img);
 
 private:
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^CƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 	BitmapReader(const BitmapReader & obj);
 	BitmapReader & operator=(const BitmapReader & rhs);
 };
@@ -1329,63 +1336,63 @@ static const enum SELECT_PLANE
 
 
 //
-// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 //
 class BitmapWriter {
 public:
 	BitmapWriter() {}
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiRGBImage -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆRGBImage -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//  fileName	: o—Íƒtƒ@ƒCƒ‹–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
+	// å¼•æ•°
+	//  fileName	: å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	bool write(std::string fileName, RGBImage * img);
 	bool write(std::string dirName, RGBImage3D * img, int plane = 0);
 
 	// write
-//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage2D -> Bitmapj
+//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage2D -> Bitmapï¼‰
 // 
-// ˆø”
-//	fileName	: o—Íƒtƒ@ƒCƒ‹–¼
-//  img			: o—Í‚·‚é‰æ‘œ
+// å¼•æ•°
+//	fileName	: å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
 //	wl			: window level
 //	ww			: window width
-//  ganma       : ganma’l
+//  ganma       : ganmaå€¤
 //
-// –ß‚è’l
-//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+// æˆ»ã‚Šå€¤
+//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	bool write(std::string fileName, ShortImage2D * img, short wl, short ww, double ganma);
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage3D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage3D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//	dirName		: o—ÍƒfƒBƒŒƒNƒgƒŠ–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
+	// å¼•æ•°
+	//	dirName		: å‡ºåŠ›ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
 	//	wl			: window level
 	//	ww			: window width
-	//  ganma       : ganma’l
+	//  ganma       : ganmaå€¤
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	bool write(std::string dirName, ShortImage3D * img, short wl, short ww, double ganma, int plane);
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage2D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage2D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//  fileName	: o—Íƒtƒ@ƒCƒ‹–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
-	//  min			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ¬’l
-	//  max			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ‘å’l
+	// å¼•æ•°
+	//  fileName	: å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
+	//  min			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å°å€¤
+	//  max			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å¤§å€¤
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	bool write(std::string fileName, ShortImage2D * img, double min, double max);
 	bool write(std::string fileName, ShortImage2D * img)
 	{
@@ -1409,17 +1416,17 @@ public:
 
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage3D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage3D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//	dirName		: o—ÍƒfƒBƒŒƒNƒgƒŠ–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
-	//	min			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ¬’l
-	//	max			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ‘å’l
+	// å¼•æ•°
+	//	dirName		: å‡ºåŠ›ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
+	//	min			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å°å€¤
+	//	max			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å¤§å€¤
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
-	// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
+	// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 	bool write(std::string dirName, ShortImage3D * img, double min, double max, int plane = 0);
 	bool write(std::string dirName, ShortImage3D * img, int plane = 0)
 	{
@@ -1427,9 +1434,16 @@ public:
 		std::string fileName;
 		std::ostringstream oss;
 
-		//ƒtƒHƒ‹ƒ_ì¬
+		//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
+#ifdef _WIN64
 		if (!_mkdir(dirName.c_str()))
 			std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#elif __linux
+		if (!mkdir(dirName.c_str(), 0777))
+			std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#endif // _WIN64
 
 		if (plane == Axial) {
 			out.newImage(img->sizeX, img->sizeY);
@@ -1496,16 +1510,16 @@ public:
 
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage2D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage2D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//  fileName	: o—Íƒtƒ@ƒCƒ‹–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
-	//  min			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ¬’l
-	//  max			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ‘å’l
+	// å¼•æ•°
+	//  fileName	: å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
+	//  min			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å°å€¤
+	//  max			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å¤§å€¤
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	template <class T> bool writeT(std::string fileName, DataArray2D<T> * img, double min, double max)
 	{
 		std::ofstream ofs(fileName.c_str(), std::ios_base::binary);
@@ -1515,13 +1529,13 @@ public:
 			return false;
 		}
 
-		// ƒwƒbƒ_î•ñ‚Ìİ’è
+		// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®è¨­å®š
 		Bmp::BitmapInfoHeader bmih;
 		setBitmapInfoHeader(img->sizeX, img->sizeY, bmih);
 		Bmp::BitmapFileHeader bmfh;
 		setBitmapFileHeader(bmih.biSizeImage, bmfh);
 
-		// ƒwƒbƒ_î•ñ‚Ì‘‚«o‚µ
+		// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®æ›¸ãå‡ºã—
 		ofs.write((char *)&bmfh.bfType, sizeof(bmfh.bfType));
 		ofs.write((char *)&bmfh.bfSize, sizeof(bmfh.bfSize));
 		ofs.write((char *)&bmfh.bfReserved1, sizeof(bmfh.bfReserved1));
@@ -1547,11 +1561,11 @@ public:
 		unsigned char * buf = new unsigned char[bufSize];
 		unsigned int idx = 0;
 
-		// ”Z“x•ÏŠ·‚Ìƒpƒ‰ƒ[ƒ^
+		// æ¿ƒåº¦å¤‰æ›ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 		double gradient = Bmp::RGBMaxIntensity / (max - min);
 		double intercept = -gradient * min;
 
-		// ƒoƒbƒtƒ@‚ÉRGB’l‚ğŠi”[
+		// ãƒãƒƒãƒ•ã‚¡ã«RGBå€¤ã‚’æ ¼ç´
 		for (int y = sizeY - 1; y >= 0; y--) {
 			for (int x = 0; x < sizeX; x++) {
 				double value = static_cast<double>(img->data[y][x]);
@@ -1570,7 +1584,7 @@ public:
 			idx += padNum;
 		}
 
-		// ‰æ‘œƒf[ƒ^‚Ì‘‚«o‚µ
+		// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—
 		ofs.write((char *)buf, bufSize);
 
 		delete[] buf;	buf = NULL;
@@ -1580,14 +1594,14 @@ public:
 	}
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage2D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage2D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//  fileName	: o—Íƒtƒ@ƒCƒ‹–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
+	// å¼•æ•°
+	//  fileName	: å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	template <class T> bool writeT(std::string fileName, DataArray2D<T> * img)
 	{
 		double min = DBL_MAX, max = -DBL_MAX;
@@ -1608,26 +1622,33 @@ public:
 	}
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage3D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage3D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//	dirName		: o—ÍƒfƒBƒŒƒNƒgƒŠ–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
-	//	min			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ¬’l
-	//	max			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ‘å’l
+	// å¼•æ•°
+	//	dirName		: å‡ºåŠ›ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
+	//	min			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å°å€¤
+	//	max			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å¤§å€¤
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
-	// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
+	// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 	template <class T> bool writeT(std::string dirName, DataArray3D<T> * img, double min, double max, int plane = 0)
 	{
 		DataArray2D<T> out;
 		std::string fileName;
 		std::ostringstream oss;
 
-		//ƒtƒHƒ‹ƒ_ì¬
+		//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
+#ifdef _WIN64
 		if (!_mkdir(dirName.c_str()))
 			std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#elif __linux
+		if (!mkdir(dirName.c_str(), 0777))
+			std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#endif // _WIN64
 
 		if (plane == Axial) {
 			out.newImage(img->sizeX, img->sizeY);
@@ -1674,23 +1695,30 @@ public:
 
 
 	// write
-	//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage3D -> Bitmapj
+	//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage3D -> Bitmapï¼‰
 	// 
-	// ˆø”
-	//	dirName		: o—ÍƒfƒBƒŒƒNƒgƒŠ–¼
-	//  img			: o—Í‚·‚é‰æ‘œ
+	// å¼•æ•°
+	//	dirName		: å‡ºåŠ›ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+	//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
 	//
-	// –ß‚è’l
-	//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+	// æˆ»ã‚Šå€¤
+	//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 	template <class T> bool writeT(std::string dirName, DataArray3D<T> * img, int plane = 0)
 	{
 		DataArray2D<T> out;
 		std::string fileName;
 		std::ostringstream oss;
 
-		//ƒtƒHƒ‹ƒ_ì¬
+		//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
+#ifdef _WIN64
 		if (!_mkdir(dirName.c_str()))
 			std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#elif __linux
+		if (!mkdir(dirName.c_str(), 0777))
+			std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#endif // _WIN64
 
 		if (plane == Axial) {
 			out.newImage(img->sizeX, img->sizeY);
@@ -1757,94 +1785,94 @@ public:
 
 private:
 
-	// 24ƒrƒbƒgƒtƒ‹ƒJƒ‰[Bitmap‚ÌBitmapInfoHeader‚Ìİ’è
+	// 24ãƒ“ãƒƒãƒˆãƒ•ãƒ«ã‚«ãƒ©ãƒ¼Bitmapã®BitmapInfoHeaderã®è¨­å®š
 	void setBitmapInfoHeader(long width, long height, Bmp::BitmapInfoHeader & bmih);
 
-	// 24ƒrƒbƒgƒtƒ‹ƒJƒ‰[Bitmap‚ÌBitmapFileHeader‚Ìİ’è
+	// 24ãƒ“ãƒƒãƒˆãƒ•ãƒ«ã‚«ãƒ©ãƒ¼Bitmapã®BitmapFileHeaderã®è¨­å®š
 	void setBitmapFileHeader(unsigned long biSizeImage, Bmp::BitmapFileHeader & bmfh);
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^CƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 	BitmapWriter(const BitmapWriter & obj);
 	BitmapWriter & operator=(const BitmapWriter & rhs);
 };
 
 
 //---------------------------------------------------------------------------------------------------
-// Rawƒf[ƒ^“üo—ÍŠÖŒW
+// Rawãƒ‡ãƒ¼ã‚¿å…¥å‡ºåŠ›é–¢ä¿‚
 //---------------------------------------------------------------------------------------------------
 //
-// Rawƒf[ƒ^‚Ì“Ç‚İ‚İ
+// Rawãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 //
 class RawReader {
 public:
 	RawReader() {}
 
 	// read
-	//  2ŸŒ³Rawƒf[ƒ^‚Ì“Ç‚İ‚İD
-	//  ‚±‚ÌŠÖ”“à‚Åƒƒ‚ƒŠ‚ğŠ„‚è“–‚Ä‚éD
+	//  2æ¬¡å…ƒRawãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ï¼
+	//  ã“ã®é–¢æ•°å†…ã§ãƒ¡ãƒ¢ãƒªã‚’å‰²ã‚Šå½“ã¦ã‚‹ï¼
 	//
-	// ˆø”
-	//  fileName	: ƒtƒ@ƒCƒ‹–¼
-	//  raw			: ‰æ‘œƒf[ƒ^
-	//  sizeX		: X•ûŒüƒTƒCƒY
-	//  sizeY		: Y•ûŒüƒTƒCƒY
+	// å¼•æ•°
+	//  fileName	: ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  raw			: ç”»åƒãƒ‡ãƒ¼ã‚¿
+	//  sizeX		: Xæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeY		: Yæ–¹å‘ã‚µã‚¤ã‚º
 	//
-	// –ß‚è’l
-	//  ¬Œ÷FtrueC¸”sFfalse
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸï¼štrueï¼Œå¤±æ•—ï¼šfalse
 	template< class T > bool read(std::string fileName, DataArray2D< T > * raw, int sizeX, int sizeY) {
-		// ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 		std::ifstream ifs(fileName.c_str(), std::ios_base::binary);
 		if (!ifs) {
 			std::cerr << "Failed to open file \"" << fileName << "\"" << std::endl;
 			//std::exit(1);
 			return false;
 		}
-		// ‰æ‘œƒf[ƒ^”z—ñ‚Ìİ’è
+		// ç”»åƒãƒ‡ãƒ¼ã‚¿é…åˆ—ã®è¨­å®š
 		raw->resize(sizeX, sizeY);
-		// ‰æ‘œƒf[ƒ^‚Ìæ“¾
+		// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 		for (int y = 0; y < sizeY; y++) {
 			ifs.read((char *)raw->data[y], sizeof(T) * raw->sizeX);
 		}
-		// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 		ifs.close();
 
 		return true;
 	}
 
 	// read
-	//  3ŸŒ³Rawƒf[ƒ^‚Ì“Ç‚İ‚İD
-	//  x, yƒTƒCƒY‚ğw’è‚·‚ê‚ÎCz•ûŒü‚ÌƒTƒCƒY‚ÍŒˆ’è‚Å‚«‚é‚Ì‚ÅCz•ûŒüƒTƒCƒY‚Ìw’è‚Í•s—vD
-	//  ‚±‚ÌŠÖ”“à‚Åƒƒ‚ƒŠ‚ğŠ„‚è“–‚Ä‚éD
+	//  3æ¬¡å…ƒRawãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ï¼
+	//  x, yã‚µã‚¤ã‚ºã‚’æŒ‡å®šã™ã‚Œã°ï¼Œzæ–¹å‘ã®ã‚µã‚¤ã‚ºã¯æ±ºå®šã§ãã‚‹ã®ã§ï¼Œzæ–¹å‘ã‚µã‚¤ã‚ºã®æŒ‡å®šã¯ä¸è¦ï¼
+	//  ã“ã®é–¢æ•°å†…ã§ãƒ¡ãƒ¢ãƒªã‚’å‰²ã‚Šå½“ã¦ã‚‹ï¼
 	//
-	// ˆø”
-	//  fileName	: ƒtƒ@ƒCƒ‹–¼
-	//  raw			: ‰æ‘œƒf[ƒ^
-	//  sizeX		: X•ûŒüƒTƒCƒY
-	//  sizeY		: Y•ûŒüƒTƒCƒY
+	// å¼•æ•°
+	//  fileName	: ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  raw			: ç”»åƒãƒ‡ãƒ¼ã‚¿
+	//  sizeX		: Xæ–¹å‘ã‚µã‚¤ã‚º
+	//  sizeY		: Yæ–¹å‘ã‚µã‚¤ã‚º
 	//
-	// –ß‚è’l
-	//  ¬Œ÷FtrueC¸”sFfalse
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸï¼štrueï¼Œå¤±æ•—ï¼šfalse
 	template< class T > bool read(std::string fileName, DataArray3D<T> * raw, int sizeX, int sizeY) {
-		// ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 		std::ifstream ifs(fileName.c_str(), std::ios_base::binary);
 		if (!ifs) {
 			std::cerr << "Failed to open file \"" << fileName << "\"" << std::endl;
 			//std::exit(1);
 			return false;
 		}
-		// Z•ûŒüƒTƒCƒY‚ÌŒˆ’è
+		// Zæ–¹å‘ã‚µã‚¤ã‚ºã®æ±ºå®š
 		ifs.seekg(0, std::ifstream::end);
 		int sizeZ = ifs.tellg() / (sizeX * sizeY * sizeof(T));
 		ifs.seekg(0, std::ifstream::beg);
-		// ‰æ‘œƒf[ƒ^”z—ñ‚Ìİ’è
+		// ç”»åƒãƒ‡ãƒ¼ã‚¿é…åˆ—ã®è¨­å®š
 		raw->resize(sizeX, sizeY, sizeZ);
-		// ‰æ‘œƒf[ƒ^‚Ìæ“¾
+		// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 		for (int z = 0; z < sizeZ; z++) {
 			for (int y = 0; y < sizeY; y++) {
 				ifs.read((char *)raw->data[z][y], sizeof(T) * sizeX);
 			}
 		}
-		// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 		ifs.close();
 
 		return true;
@@ -1852,69 +1880,69 @@ public:
 
 private:
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^CƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 	RawReader(const RawReader & obj);
 	RawReader & operator=(const RawReader & rhs);
 };
 
 //
-// Rawƒf[ƒ^‚Ì‘‚«o‚µ
+// Rawãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—
 //
 class RawWriter {
 public:
 	RawWriter() {}
 
 	// write
-	//  ‚QŸŒ³Rawƒf[ƒ^‚Ì‘‚«o‚µD
-	//  Rawƒf[ƒ^‚Í‰æ‘f’lˆÈŠO‚Ìî•ñ‚Í‚½‚È‚¢‚Ì‚ÅCXY•ûŒü‚ÌƒTƒCƒY‚ğ”cˆ¬‚µ‚Ä‚¨‚­‚±‚ÆD
+	//  ï¼’æ¬¡å…ƒRawãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—ï¼
+	//  Rawãƒ‡ãƒ¼ã‚¿ã¯ç”»ç´ å€¤ä»¥å¤–ã®æƒ…å ±ã¯æŒãŸãªã„ã®ã§ï¼ŒXYæ–¹å‘ã®ã‚µã‚¤ã‚ºã‚’æŠŠæ¡ã—ã¦ãŠãã“ã¨ï¼
 	//
-	// ˆø”
-	//  fileName : ƒtƒ@ƒCƒ‹–¼
-	//  raw      : ‰æ‘œƒf[ƒ^
+	// å¼•æ•°
+	//  fileName : ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  raw      : ç”»åƒãƒ‡ãƒ¼ã‚¿
 	// 
-	// –ß‚è’l
-	//  ¬Œ÷FtrueC¸”sFfalse
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸï¼štrueï¼Œå¤±æ•—ï¼šfalse
 	template< class T > bool write(std::string fileName, DataArray2D< T > * raw) {
-		// ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 		std::ofstream ofs(fileName.c_str(), std::ios_base::binary);
 		if (!ofs) {
 			std::cerr << "Failed to open file \"" << fileName << "\"" << std::endl;
 			return false;
 		}
-		// ƒf[ƒ^‚Ì“Ç‚İ‚İ
+		// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 		for (int y = 0; y < raw->sizeY; y++) {
 			ofs.write((char *)raw->data[y], sizeof(T) * raw->sizeX);
 		}
-		// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 		ofs.close();
 
 		return true;
 	}
 
 	// write
-	//  ‚RŸŒ³Rawƒf[ƒ^‚Ì‘‚«o‚µD
-	//  Rawƒf[ƒ^‚Í‰æ‘f’lˆÈŠO‚Ìî•ñ‚Í‚½‚È‚¢‚Ì‚ÅCXY•ûŒü‚ÌƒTƒCƒY‚ğ”cˆ¬‚µ‚Ä‚¨‚­‚±‚ÆD
+	//  ï¼“æ¬¡å…ƒRawãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—ï¼
+	//  Rawãƒ‡ãƒ¼ã‚¿ã¯ç”»ç´ å€¤ä»¥å¤–ã®æƒ…å ±ã¯æŒãŸãªã„ã®ã§ï¼ŒXYæ–¹å‘ã®ã‚µã‚¤ã‚ºã‚’æŠŠæ¡ã—ã¦ãŠãã“ã¨ï¼
 	//
-	// ˆø”
-	//  fileName : ƒtƒ@ƒCƒ‹–¼
-	//  raw      : ‰æ‘œƒf[ƒ^
+	// å¼•æ•°
+	//  fileName : ãƒ•ã‚¡ã‚¤ãƒ«å
+	//  raw      : ç”»åƒãƒ‡ãƒ¼ã‚¿
 	// 
-	// –ß‚è’l
-	//  ¬Œ÷FtrueC¸”sFfalse
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸï¼štrueï¼Œå¤±æ•—ï¼šfalse
 	template< class T > bool write(std::string fileName, DataArray3D< T > * raw) {
-		// ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 		std::ofstream ofs(fileName.c_str(), std::ios_base::binary);
 		if (!ofs) {
 			std::cerr << "Failed to open file \"" << fileName << "\"" << std::endl;
 			return false;
 		}
-		// ƒf[ƒ^‚Ì“Ç‚İ‚İ
+		// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 		for (int z = 0; z < raw->sizeZ; z++) {
 			for (int y = 0; y < raw->sizeY; y++) {
 				ofs.write((char *)raw->data[z][y], sizeof(T) * raw->sizeX);
 			}
 		}
-		// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 		ofs.close();
 
 		return true;
@@ -1922,15 +1950,15 @@ public:
 
 
 	// convert
-	//  ‚RŸŒ³Rawƒf[ƒ^‚ğ‚QŸŒ³ƒV[ƒPƒ“ƒVƒƒƒ‹ƒtƒ@ƒCƒ‹‚É‘‚«o‚µD
-	//  Rawƒf[ƒ^‚Í‰æ‘f’lˆÈŠO‚Ìî•ñ‚Í‚½‚È‚¢‚Ì‚ÅCXY•ûŒü‚ÌƒTƒCƒY‚ğ”cˆ¬‚µ‚Ä‚¨‚­‚±‚ÆD
+	//  ï¼“æ¬¡å…ƒRawãƒ‡ãƒ¼ã‚¿ã‚’ï¼’æ¬¡å…ƒã‚·ãƒ¼ã‚±ãƒ³ã‚·ãƒ£ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãå‡ºã—ï¼
+	//  Rawãƒ‡ãƒ¼ã‚¿ã¯ç”»ç´ å€¤ä»¥å¤–ã®æƒ…å ±ã¯æŒãŸãªã„ã®ã§ï¼ŒXYæ–¹å‘ã®ã‚µã‚¤ã‚ºã‚’æŠŠæ¡ã—ã¦ãŠãã“ã¨ï¼
 	//
-	// ˆø”
-	//  dirName  : ƒtƒHƒ‹ƒ_–¼–¼
-	//  raw      : ‰æ‘œƒf[ƒ^
+	// å¼•æ•°
+	//  dirName  : ãƒ•ã‚©ãƒ«ãƒ€åå
+	//  raw      : ç”»åƒãƒ‡ãƒ¼ã‚¿
 	// 
-	// –ß‚è’l
-	//  ¬Œ÷FtrueC¸”sFfalse
+	// æˆ»ã‚Šå€¤
+	//  æˆåŠŸï¼štrueï¼Œå¤±æ•—ï¼šfalse
 	template< class T > bool convert(std::string dirName, DataArray3D <T> * raw)
 	{
 		DataArray2D <T> out;
@@ -1958,7 +1986,7 @@ public:
 
 private:
 
-	// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^CƒRƒs[‘ã“ü‰‰Zq‚Í–¢À‘•
+	// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œã‚³ãƒ”ãƒ¼ä»£å…¥æ¼”ç®—å­ã¯æœªå®Ÿè£…
 	RawWriter(const RawWriter & obj);
 	RawWriter & operator=(const RawWriter & rhs);
 };

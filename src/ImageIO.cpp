@@ -1,10 +1,10 @@
-//#include "stdafx.h"
+ï»¿//#include "stdafx.h"
 
 /***************************************
  *
  * ImageIO.cpp
  *
- * ‰æ‘œ‚Ì“üo—Í
+ * ç”»åƒã®å…¥å‡ºåŠ›
  *
  * Version    : 4
  * Month/Year : 03/2008
@@ -12,27 +12,27 @@
  *
  ***************************************/
  /**************************************
-  * XVî•ñ@2008/09/09
-  * ‹ãB•‰È‘åŠw‚ÌDICOM‚ğ“Ç‚ß‚é‚æ‚¤‚É‚µ‚Ü‚µ‚½B
-  * ƒwƒbƒ_‚É#define NON_PRIFIX ‚ğ‹Lq‚·‚é‚±‚Æ
-  * Preamble : ‚È‚µ
-  * Prefix   : ‚È‚µ
-  * Data Element : Group 0008 Element 0000@(ŠJnˆÊ’u)
-  * Implicit VR ‚É‚æ‚é‹Lq
+  * æ›´æ–°æƒ…å ±ã€€2008/09/09
+  * ä¹å·æ­¯ç§‘å¤§å­¦ã®DICOMã‚’èª­ã‚ã‚‹ã‚ˆã†ã«ã—ã¾ã—ãŸã€‚
+  * ãƒ˜ãƒƒãƒ€ã«#define NON_PRIFIX ã‚’è¨˜è¿°ã™ã‚‹ã“ã¨
+  * Preamble : ãªã—
+  * Prefix   : ãªã—
+  * Data Element : Group 0008 Element 0000ã€€(é–‹å§‹ä½ç½®)
+  * Implicit VR ã«ã‚ˆã‚‹è¨˜è¿°
  ****************************************/
  /**************************************
-  * XVî•ñ@2008/09/19
-  * ƒ{ƒŠƒ…[ƒ€ƒf[ƒ^‚©‚çBitmapƒtƒ@ƒCƒ‹‚ğ
-  * ƒV[ƒPƒ“ƒVƒƒƒ‹‚Éo—Í‰Â”\
+  * æ›´æ–°æƒ…å ±ã€€2008/09/19
+  * ãƒœãƒªãƒ¥ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰Bitmapãƒ•ã‚¡ã‚¤ãƒ«ã‚’
+  * ã‚·ãƒ¼ã‚±ãƒ³ã‚·ãƒ£ãƒ«ã«å‡ºåŠ›å¯èƒ½
  ****************************************/
  /**************************************
-  * XVî•ñ@2008/10/21
-  * WL,WW,GANMA‚ğ—p‚¢‚½”Z“xæ~’²•ÏŠ·‚ğ’Ç‰Á
+  * æ›´æ–°æƒ…å ±ã€€2008/10/21
+  * WL,WW,GANMAã‚’ç”¨ã„ãŸæ¿ƒåº¦è«§èª¿å¤‰æ›ã‚’è¿½åŠ 
  ****************************************/
  /**************************************
-  * XVî•ñ@2008/10/24
-  * VR‚ÌSQ‚ª’l’·‚³‚ª–¢’è‹`’·‚³‚Ìê‡‚Ì
-  * —áŠOˆ—‚ğ’Ç‰Á
+  * æ›´æ–°æƒ…å ±ã€€2008/10/24
+  * VRã®SQãŒå€¤é•·ã•ãŒæœªå®šç¾©é•·ã•ã®å ´åˆã®
+  * ä¾‹å¤–å‡¦ç†ã‚’è¿½åŠ 
  ****************************************/
 #include <iostream>
 #include <string>
@@ -42,20 +42,20 @@
 #include <climits>
 #include "ImageIO.h"
 
- // “]‘—\•¶
-static const std::string ImplicitVRLittleEndianTF("1.2.840.10008.1.2");		// ˆÃ–Ù“IVRƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ““]‘—\•¶
-static const std::string ExplicitVRLittleEndianTF("1.2.840.10008.1.2.1");	// –¾¦“IVRƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ““]‘—\•¶
-static const std::string ExplicitVRBigEndianTF("1.2.840.10008.1.2.2");		// –¾¦“IVRƒrƒbƒOƒGƒ“ƒfƒBƒAƒ““]‘—\•¶
+ // è»¢é€æ§‹æ–‡
+static const std::string ImplicitVRLittleEndianTF("1.2.840.10008.1.2");		// æš—é»™çš„VRãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³è»¢é€æ§‹æ–‡
+static const std::string ExplicitVRLittleEndianTF("1.2.840.10008.1.2.1");	// æ˜ç¤ºçš„VRãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³è»¢é€æ§‹æ–‡
+static const std::string ExplicitVRBigEndianTF("1.2.840.10008.1.2.2");		// æ˜ç¤ºçš„VRãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³è»¢é€æ§‹æ–‡
 
-// DICOMƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+// DICOMãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 bool DicomReader::read(std::string fileName, ShortImage2D * dcm)
 {
-	// DICOMƒtƒ@ƒCƒ‹ƒƒ^î•ñ‚Í Explicit VR Little Endian
+	// DICOMãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ã‚¿æƒ…å ±ã¯ Explicit VR Little Endian
 	implicitVR_ = true;
 	littleEndian_ = true;
 	prefix = true;
 
-	//‰æ‘œî•ñ‚Ìæ“¾
+	//ç”»åƒæƒ…å ±ã®å–å¾—
 	this->getInfo(fileName, &info);
 
 	if (ifs_.is_open()) {
@@ -68,7 +68,7 @@ bool DicomReader::read(std::string fileName, ShortImage2D * dcm)
 		return false;
 	}
 
-	// ƒwƒbƒ_‚Ì‹ó“Ç‚İ
+	// ãƒ˜ãƒƒãƒ€ã®ç©ºèª­ã¿
 	if (scan() == false) {
 		std::cerr << "Failed to read file \"" << fileName << "\"" << std::endl;
 		ifs_.close();
@@ -76,10 +76,10 @@ bool DicomReader::read(std::string fileName, ShortImage2D * dcm)
 		return false;
 	}
 
-	// ‰æ‘œ‚Ìƒƒ‚ƒŠŠ„‚è“–‚Ä
+	// ç”»åƒã®ãƒ¡ãƒ¢ãƒªå‰²ã‚Šå½“ã¦
 	dcm->resize(sizeX_, sizeY_);
 
-	// ‰æ‘œƒf[ƒ^‚Ìæ“¾
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 	for (int y = 0; y < dcm->sizeY; y++) {
 		ifs_.read((char *)dcm->data[y], dcm->sizeX * sizeof(short));
 	}
@@ -87,13 +87,13 @@ bool DicomReader::read(std::string fileName, ShortImage2D * dcm)
 	ifs_.close();
 	sizeX_ = sizeY_ = 0;
 
-	//‰æ‘œî•ñ‚Ìæ“¾
+	//ç”»åƒæƒ…å ±ã®å–å¾—
 	dcm->setScale(info.pixelSpacingX, info.pixelSpacingY);
 
 	return true;
 }
 
-// ƒ^ƒO‚Ì“Ç‚İæ‚è
+// ã‚¿ã‚°ã®èª­ã¿å–ã‚Š
 unsigned int DicomReader::getTag()
 {
 	unsigned int temp1 = 0;
@@ -105,10 +105,10 @@ unsigned int DicomReader::getTag()
 	return (temp1 << 16) | temp2;
 }
 
-// ‰æ‘œî•ñ‚Ìæ“¾
+// ç”»åƒæƒ…å ±ã®å–å¾—
 bool DicomReader::getInfo(std::string fileName, DicomImageInfo * info)
 {
-	// DICOMƒtƒ@ƒCƒ‹ƒƒ^î•ñ‚Í Explicit VR Little Endian
+	// DICOMãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ã‚¿æƒ…å ±ã¯ Explicit VR Little Endian
 	implicitVR_ = true;
 	littleEndian_ = true;
 	prefix = true;
@@ -123,7 +123,7 @@ bool DicomReader::getInfo(std::string fileName, DicomImageInfo * info)
 		return false;
 	}
 
-	// ƒwƒbƒ_‚ÌƒXƒLƒƒƒ“
+	// ãƒ˜ãƒƒãƒ€ã®ã‚¹ã‚­ãƒ£ãƒ³
 	if (scanDicomMetaInfo() == false) {
 		prefix = false;
 		ifs_.seekg(0, std::ifstream::beg);
@@ -133,7 +133,7 @@ bool DicomReader::getInfo(std::string fileName, DicomImageInfo * info)
 	int valueLength = 0;
 	std::string str;
 
-	// 0x7fe0 0x0010@‰æ‘œƒf[ƒ^‚Ìƒ^ƒO‚Ü‚Åƒwƒbƒ_‚ğ“Ç‚Ş
+	// 0x7fe0 0x0010ã€€ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ã‚¿ã‚°ã¾ã§ãƒ˜ãƒƒãƒ€ã‚’èª­ã‚€
 	while (ifs_.eof() == false && (tag = getTag()) != 0x7fe00010) {
 		valueLength = getValueLength();
 		//printf("tag : %0x  length : %d\n", tag, valueLength);
@@ -190,11 +190,11 @@ bool DicomReader::getInfo(std::string fileName, DicomImageInfo * info)
 	return true;
 }
 
-// “]‘—\•¶‚Ì“Ç‚İæ‚è
-// implicitVR_, littleEndian_‚Ìƒtƒ‰ƒO‚ğİ’è‚·‚é
+// è»¢é€æ§‹æ–‡ã®èª­ã¿å–ã‚Š
+// implicitVR_, littleEndian_ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã™ã‚‹
 void DicomReader::setTransferSyntax(std::string transferSyntax)
 {
-	// VR, Endian‚Ìİ’è
+	// VR, Endianã®è¨­å®š
 	if (transferSyntax == ImplicitVRLittleEndianTF) {
 		// Implicit VR Little Endian
 		implicitVR_ = true;
@@ -217,7 +217,7 @@ void DicomReader::setTransferSyntax(std::string transferSyntax)
 	}
 }
 
-// ’l’·‚³‚Ìæ“¾
+// å€¤é•·ã•ã®å–å¾—
 unsigned int DicomReader::getValueLength(int * byte)
 {
 	unsigned int valueLength = 0;
@@ -244,17 +244,17 @@ unsigned int DicomReader::getValueLength(int * byte)
 				ifs_.read((char *)&valueLength, sizeof(unsigned short));
 				sum += sizeof(unsigned short);
 			}
-			else if (vr == "SQ") {		//  ’Ç‰Á
+			else if (vr == "SQ") {		//  è¿½åŠ 
 				ifs_.read((char *)&tmp, sizeof(unsigned short));
 				sum += sizeof(unsigned short);
 				ifs_.read((char *)&valueLength, sizeof(unsigned int));
 				sum += sizeof(unsigned int);
 
-				if (valueLength == -1) {	// ’l’·‚³‚ª–¢’è‹`’·‚³
-					// ƒf[ƒ^—v‘fƒ^ƒO‚ğ‹ó“Ç‚İ
+				if (valueLength == -1) {	// å€¤é•·ã•ãŒæœªå®šç¾©é•·ã•
+					// ãƒ‡ãƒ¼ã‚¿è¦ç´ ã‚¿ã‚°ã‚’ç©ºèª­ã¿
 					ifs_.read((char *)&valueLength, sizeof(unsigned int));
 					sum += sizeof(unsigned int);
-					// ƒV[ƒPƒ“ƒX‹æØ‚è€–Ú‚Ìƒf[ƒ^”‚ğvalueLength‚Æ‚·‚é
+					// ã‚·ãƒ¼ã‚±ãƒ³ã‚¹åŒºåˆ‡ã‚Šé …ç›®ã®ãƒ‡ãƒ¼ã‚¿æ•°ã‚’valueLengthã¨ã™ã‚‹
 					valueLength = sizeof(unsigned int);
 				}
 			}
@@ -277,7 +277,7 @@ unsigned int DicomReader::getValueLength(int * byte)
 	return valueLength;
 }
 
-// •¶š—ñ‚Æ‚µ‚Ä“Ç‚İ‚Ş
+// æ–‡å­—åˆ—ã¨ã—ã¦èª­ã¿è¾¼ã‚€
 std::string DicomReader::getStr(int valueLength)
 {
 	std::string str;
@@ -293,13 +293,13 @@ std::string DicomReader::getStr(int valueLength)
 	return str;
 }
 
-// DICOMƒtƒ@ƒCƒ‹ƒƒ^î•ñ‚ğƒXƒLƒƒƒ“‚·‚é
+// DICOMãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ã‚¿æƒ…å ±ã‚’ã‚¹ã‚­ãƒ£ãƒ³ã™ã‚‹
 bool DicomReader::scanDicomMetaInfo()
 {
 	std::string str("");
 	std::string DICM("DICM");
 
-	// ƒtƒ@ƒCƒ‹ƒvƒŠƒAƒ“ƒuƒ‹‚ğ‹ó“Ç‚İ
+	// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ—ãƒªã‚¢ãƒ³ãƒ–ãƒ«ã‚’ç©ºèª­ã¿
 	char ch = 0;
 	while (ch != 'D' && !ifs_.eof()) {
 		ifs_.read(&ch, sizeof(char));
@@ -311,7 +311,7 @@ bool DicomReader::scanDicomMetaInfo()
 		return false;
 	}
 
-	// DICOMƒvƒŠƒtƒBƒbƒNƒX‚ğ“Ç‚Ş
+	// DICOMãƒ—ãƒªãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚’èª­ã‚€
 	for (int i = 1; i < 4; i++) {
 		ifs_.read(&ch, sizeof(char));
 		str += ch;
@@ -319,10 +319,10 @@ bool DicomReader::scanDicomMetaInfo()
 
 	if (str != DICM) {
 		std::cerr << "This file is not DICOM format." << std::endl;
-		return false;		// ’Ç‰Á !!
+		return false;		// è¿½åŠ  !!
 	}
 
-	// DICOMƒtƒ@ƒCƒ‹ƒƒ^î•ñ‚Í Explicit VR Little Endian
+	// DICOMãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ã‚¿æƒ…å ±ã¯ Explicit VR Little Endian
 	implicitVR_ = false;
 	littleEndian_ = true;
 
@@ -330,10 +330,10 @@ bool DicomReader::scanDicomMetaInfo()
 	int valueLength = 0;
 	int groupLength = 0;
 
-	// ƒOƒ‹[ƒv’·‚³‚Ìæ“¾
+	// ã‚°ãƒ«ãƒ¼ãƒ—é•·ã•ã®å–å¾—
 	tag = getTag();
 	valueLength = getValueLength();
-	if (tag == 0x00020000) { // 0x0002 0x0000 ƒOƒ‹[ƒv’·‚³
+	if (tag == 0x00020000) { // 0x0002 0x0000 ã‚°ãƒ«ãƒ¼ãƒ—é•·ã•
 		ifs_.read((char *)&groupLength, valueLength);
 	}
 
@@ -347,7 +347,7 @@ bool DicomReader::scanDicomMetaInfo()
 			valueLength = getValueLength(&byte);
 			len += valueLength;
 			len += byte;
-			// “]‘—\•¶‚Ì“Ç‚İæ‚è
+			// è»¢é€æ§‹æ–‡ã®èª­ã¿å–ã‚Š
 			for (int i = 0; i < valueLength; i++) {
 				char ch = 0;
 				ifs_.read(&ch, sizeof(char));
@@ -367,24 +367,24 @@ bool DicomReader::scanDicomMetaInfo()
 		}
 	}
 
-	implicitVR_ = true; // ƒfƒtƒHƒ‹ƒg‚É–ß‚·
+	implicitVR_ = true; // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã«æˆ»ã™
 
 	setTransferSyntax(transferSyntax);
 
 	return true;
 }
 
-// DICOMƒwƒbƒ_î•ñ‚Ì“Ç‚İæ‚è
+// DICOMãƒ˜ãƒƒãƒ€æƒ…å ±ã®èª­ã¿å–ã‚Š
 bool DicomReader::scan()
 {
 	//#ifndef NON_PRIFIX
 	if (prefix)
-		if (scanDicomMetaInfo() == false) return false;	//’Ç‰ÁIII
+		if (scanDicomMetaInfo() == false) return false;	//è¿½åŠ ï¼ï¼ï¼
 //#endif
 	unsigned int tag = 0;
 	int valueLength = 0;
 
-	// 0x7fe0 0x0010@‰æ‘œƒf[ƒ^‚Ìƒ^ƒO‚Ü‚Åƒwƒbƒ_‚ğ“Ç‚Ş
+	// 0x7fe0 0x0010ã€€ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ã‚¿ã‚°ã¾ã§ãƒ˜ãƒƒãƒ€ã‚’èª­ã‚€
 	while (ifs_.eof() == false && (tag = getTag()) != 0x7fe00010) {
 		valueLength = getValueLength();
 		char ch = 0;
@@ -406,7 +406,7 @@ bool DicomReader::scan()
 	return true;
 }
 
-// Bitmap‰æ‘œ‚Ì“Ç‚İ‚İ
+// Bitmapç”»åƒã®èª­ã¿è¾¼ã¿
 bool BitmapReader::read(std::string fileName, RGBImage *img)
 {
 	std::ifstream ifs(fileName.c_str(), std::ios_base::binary);
@@ -416,7 +416,7 @@ bool BitmapReader::read(std::string fileName, RGBImage *img)
 		return false;
 	}
 
-	// ƒtƒ@ƒCƒ‹ƒwƒbƒ_‚Ì“Ç‚İ‚İ
+	// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ˜ãƒƒãƒ€ã®èª­ã¿è¾¼ã¿
 	Bmp::BitmapFileHeader bmfh;
 	ifs.read((char *)&bmfh.bfType, sizeof(bmfh.bfType));
 	ifs.read((char *)&bmfh.bfSize, sizeof(bmfh.bfSize));
@@ -424,7 +424,7 @@ bool BitmapReader::read(std::string fileName, RGBImage *img)
 	ifs.read((char *)&bmfh.bfReserved2, sizeof(bmfh.bfReserved2));
 	ifs.read((char *)&bmfh.bfOffBits, sizeof(bmfh.bfOffBits));
 
-	// î•ñƒwƒbƒ_‚Ì“Ç‚İ‚İ
+	// æƒ…å ±ãƒ˜ãƒƒãƒ€ã®èª­ã¿è¾¼ã¿
 	Bmp::BitmapInfoHeader bmih;
 	ifs.read((char *)&bmih.biSize, sizeof(bmih.biSize));
 	ifs.read((char *)&bmih.biWidth, sizeof(bmih.biWidth));
@@ -438,15 +438,32 @@ bool BitmapReader::read(std::string fileName, RGBImage *img)
 	ifs.read((char *)&bmih.biClrUsed, sizeof(bmih.biClrUsed));
 	ifs.read((char *)&bmih.biClrImportant, sizeof(bmih.biClrImportant));
 
-	// ‰æ‘œ”z—ñ‚ÌƒTƒCƒYİ’è
+	std::cout << bmfh.bfType << std::endl;
+	std::cout << bmfh.bfSize << std::endl;
+	std::cout << bmfh.bfReserved1 << std::endl;
+	std::cout << bmfh.bfReserved2 << std::endl;
+	std::cout << bmfh.bfOffBits << std::endl;
+	std::cout << bmih.biSize << std::endl;
+	std::cout << bmih.biWidth << std::endl;
+	std::cout << bmih.biHeight << std::endl;
+	std::cout << bmih.biPlanes << std::endl;
+	std::cout << bmih.biBitCount << std::endl;
+	std::cout << bmih.biCompression << std::endl;
+	std::cout << bmih.biSizeImage << std::endl;
+	std::cout << bmih.biXPelsPerMeter << std::endl;
+	std::cout << bmih.biYPelsPerMeter << std::endl;
+	std::cout << bmih.biClrUsed << std::endl;
+	std::cout << bmih.biClrImportant << std::endl;
+
+	// ç”»åƒé…åˆ—ã®ã‚µã‚¤ã‚ºè¨­å®š
 	if (bmih.biWidth != img->sizeX || bmih.biHeight != img->sizeY) {
 		img->resize(bmih.biWidth, bmih.biHeight);
 	}
 
 	char pad;
-	int padNum = img->sizeX % 4;	// X•ûŒü‚É‚¨‚¯‚é‹l‚ß•¨‚Ì”
+	int padNum = img->sizeX % 4;	// Xæ–¹å‘ã«ãŠã‘ã‚‹è©°ã‚ç‰©ã®æ•°
 
-	// ‰æ‘fƒf[ƒ^‚Ì“Ç‚İ‚İ
+	// ç”»ç´ ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 	for (int y = img->sizeY - 1; y >= 0; y--) {
 		ifs.read((char *)img->data[y], 3 * img->sizeX);
 		for (int p = 0; p < padNum; p++) {
@@ -459,7 +476,7 @@ bool BitmapReader::read(std::string fileName, RGBImage *img)
 	return true;
 }
 
-// ‰æ‘œ‚Ì‘‚«o‚µiRGBImage -> Bitmapj
+// ç”»åƒã®æ›¸ãå‡ºã—ï¼ˆRGBImage -> Bitmapï¼‰
 bool BitmapWriter::write(std::string fileName, RGBImage * img)
 {
 	std::ofstream ofs(fileName.c_str(), std::ios_base::binary);
@@ -469,13 +486,13 @@ bool BitmapWriter::write(std::string fileName, RGBImage * img)
 		return false;
 	}
 
-	// ƒwƒbƒ_î•ñ‚Ìİ’è
+	// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®è¨­å®š
 	Bmp::BitmapInfoHeader bmih;
 	setBitmapInfoHeader(img->sizeX, img->sizeY, bmih);
 	Bmp::BitmapFileHeader bmfh;
 	setBitmapFileHeader(bmih.biSizeImage, bmfh);
 
-	// ƒwƒbƒ_î•ñ‚Ì‘‚«o‚µ
+	// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®æ›¸ãå‡ºã—
 	ofs.write((char *)&bmfh.bfType, sizeof(bmfh.bfType));
 	ofs.write((char *)&bmfh.bfSize, sizeof(bmfh.bfSize));
 	ofs.write((char *)&bmfh.bfReserved1, sizeof(bmfh.bfReserved1));
@@ -493,6 +510,23 @@ bool BitmapWriter::write(std::string fileName, RGBImage * img)
 	ofs.write((char *)&bmih.biClrUsed, sizeof(bmih.biClrUsed));
 	ofs.write((char *)&bmih.biClrImportant, sizeof(bmih.biClrImportant));
 
+	std::cout << bmfh.bfType << std::endl;
+	std::cout << bmfh.bfSize << std::endl;
+	std::cout << bmfh.bfReserved1 << std::endl;
+	std::cout << bmfh.bfReserved2 << std::endl;
+	std::cout << bmfh.bfOffBits << std::endl;
+	std::cout << bmih.biSize << std::endl;
+	std::cout << bmih.biWidth << std::endl;
+	std::cout << bmih.biHeight << std::endl;
+	std::cout << bmih.biPlanes << std::endl;
+	std::cout << bmih.biBitCount << std::endl;
+	std::cout << bmih.biCompression << std::endl;
+	std::cout << bmih.biSizeImage << std::endl;
+	std::cout << bmih.biXPelsPerMeter << std::endl;
+	std::cout << bmih.biYPelsPerMeter << std::endl;
+	std::cout << bmih.biClrUsed << std::endl;
+	std::cout << bmih.biClrImportant << std::endl;
+
 	int sizeX = img->sizeX;
 	int sizeY = img->sizeY;
 	int padNum = sizeX % 4;
@@ -501,7 +535,7 @@ bool BitmapWriter::write(std::string fileName, RGBImage * img)
 	unsigned char * buf = new unsigned char[bufSize];
 	unsigned int idx = 0;
 
-	// ƒoƒbƒtƒ@‚ÉRGB’l‚ğŠi”[
+	// ãƒãƒƒãƒ•ã‚¡ã«RGBå€¤ã‚’æ ¼ç´
 	for (int y = sizeY - 1; y >= 0; y--) {
 		for (int x = 0; x < sizeX; x++) {
 
@@ -513,7 +547,7 @@ bool BitmapWriter::write(std::string fileName, RGBImage * img)
 		idx += padNum;
 	}
 
-	// ‰æ‘œƒf[ƒ^‚Ì‘‚«o‚µ
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—
 	ofs.write((char *)buf, bufSize);
 
 	delete[] buf;
@@ -522,15 +556,24 @@ bool BitmapWriter::write(std::string fileName, RGBImage * img)
 	return true;
 }
 
-// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 bool BitmapWriter::write(std::string dirName, RGBImage3D * img, int plane)
 {
 	RGBImage out;
 	std::string fileName;
 	std::ostringstream oss;
-	//ƒtƒHƒ‹ƒ_ì¬
+
+	//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
+#ifdef _WIN64
 	if (!_mkdir(dirName.c_str()))
 		std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#elif __linux
+	if (!mkdir(dirName.c_str(), 0777))
+		std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#endif // _WIN64
+
 	if (plane == Axial) {
 		out.newImage(img->sizeX, img->sizeY);
 		for (int k = 0; k < img->sizeZ; k++) {
@@ -588,7 +631,7 @@ bool BitmapWriter::write(std::string dirName, RGBImage3D * img, int plane)
 	return 1;
 }
 
-// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, short ww, double ganma = 1.0)
 {
 	std::ofstream ofs(fileName.c_str(), std::ios_base::binary);
@@ -598,13 +641,13 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, sho
 		return false;
 	}
 
-	// ƒwƒbƒ_î•ñ‚Ìİ’è
+	// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®è¨­å®š
 	Bmp::BitmapInfoHeader bmih;
 	setBitmapInfoHeader(img->sizeX, img->sizeY, bmih);
 	Bmp::BitmapFileHeader bmfh;
 	setBitmapFileHeader(bmih.biSizeImage, bmfh);
 
-	// ƒwƒbƒ_î•ñ‚Ì‘‚«o‚µ
+	// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®æ›¸ãå‡ºã—
 	ofs.write((char *)&bmfh.bfType, sizeof(bmfh.bfType));
 	ofs.write((char *)&bmfh.bfSize, sizeof(bmfh.bfSize));
 	ofs.write((char *)&bmfh.bfReserved1, sizeof(bmfh.bfReserved1));
@@ -630,7 +673,7 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, sho
 	unsigned char * buf = new unsigned char[bufSize];
 	unsigned int idx = 0;
 
-	// WW,WL‚ÉŠÖ‚·‚éLUT
+	// WW,WLã«é–¢ã™ã‚‹LUT
 	DataArray <unsigned char> lut(ww);
 
 	for (int i = 0; i < ww; i++) {
@@ -642,7 +685,7 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, sho
 		lut.data[i] = (unsigned char)value;
 	}
 
-	// ƒKƒ“ƒ}•â³
+	// ã‚¬ãƒ³ãƒè£œæ­£
 	for (int i = 0; i < ww; i++) {
 
 		int value = int(Bmp::RGBMaxIntensity * pow(((double)lut.data[i] / Bmp::RGBMaxIntensity), 1.0 / ganma));
@@ -653,7 +696,7 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, sho
 		lut.data[i] = (unsigned char)value;
 	}
 
-	// ƒoƒbƒtƒ@‚ÉRGB’l‚ğŠi”[
+	// ãƒãƒƒãƒ•ã‚¡ã«RGBå€¤ã‚’æ ¼ç´
 	for (int y = sizeY - 1; y >= 0; y--) {
 		for (int x = 0; x < sizeX; x++) {
 			short value = img->data[y][x];
@@ -671,7 +714,7 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, sho
 		idx += padNum;
 	}
 
-	// ‰æ‘œƒf[ƒ^‚Ì‘‚«o‚µ
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—
 	ofs.write((char *)buf, bufSize);
 
 	delete[] buf;
@@ -681,16 +724,16 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, short wl, sho
 }
 
 // write
-//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage2D -> Bitmapj
+//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage2D -> Bitmapï¼‰
 // 
-// ˆø”
-//  fileName	: o—Íƒtƒ@ƒCƒ‹–¼
-//  img			: o—Í‚·‚é‰æ‘œ
-//  min			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ¬’l
-//  max			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ‘å’l
+// å¼•æ•°
+//  fileName	: å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
+//  min			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å°å€¤
+//  max			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å¤§å€¤
 //
-// –ß‚è’l
-//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
+// æˆ»ã‚Šå€¤
+//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
 bool BitmapWriter::write(std::string fileName, ShortImage2D * img, double min, double max)
 {
 	std::ofstream ofs(fileName.c_str(), std::ios_base::binary);
@@ -700,13 +743,13 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, double min, d
 		return false;
 	}
 
-	// ƒwƒbƒ_î•ñ‚Ìİ’è
+	// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®è¨­å®š
 	Bmp::BitmapInfoHeader bmih;
 	setBitmapInfoHeader(img->sizeX, img->sizeY, bmih);
 	Bmp::BitmapFileHeader bmfh;
 	setBitmapFileHeader(bmih.biSizeImage, bmfh);
 
-	// ƒwƒbƒ_î•ñ‚Ì‘‚«o‚µ
+	// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®æ›¸ãå‡ºã—
 	ofs.write((char *)&bmfh.bfType, sizeof(bmfh.bfType));
 	ofs.write((char *)&bmfh.bfSize, sizeof(bmfh.bfSize));
 	ofs.write((char *)&bmfh.bfReserved1, sizeof(bmfh.bfReserved1));
@@ -732,11 +775,11 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, double min, d
 	unsigned char * buf = new unsigned char[bufSize];
 	unsigned int idx = 0;
 
-	// ”Z“x•ÏŠ·‚Ìƒpƒ‰ƒ[ƒ^
+	// æ¿ƒåº¦å¤‰æ›ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	double gradient = Bmp::RGBMaxIntensity / (max - min);
 	double intercept = -gradient * min;
 
-	// ƒoƒbƒtƒ@‚ÉRGB’l‚ğŠi”[
+	// ãƒãƒƒãƒ•ã‚¡ã«RGBå€¤ã‚’æ ¼ç´
 	for (int y = sizeY - 1; y >= 0; y--) {
 		for (int x = 0; x < sizeX; x++) {
 			double value = static_cast<double>(img->data[y][x]);
@@ -755,7 +798,7 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, double min, d
 		idx += padNum;
 	}
 
-	// ‰æ‘œƒf[ƒ^‚Ì‘‚«o‚µ
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—
 	ofs.write((char *)buf, bufSize);
 
 	delete[] buf;	buf = NULL;
@@ -765,26 +808,33 @@ bool BitmapWriter::write(std::string fileName, ShortImage2D * img, double min, d
 }
 
 // write
-//  Bitmap‰æ‘œ‚Ì‘‚«o‚µiShortImage3D -> Bitmapj
+//  Bitmapç”»åƒã®æ›¸ãå‡ºã—ï¼ˆShortImage3D -> Bitmapï¼‰
 // 
-// ˆø”
-//	dirName		: o—ÍƒfƒBƒŒƒNƒgƒŠ–¼
-//  img			: o—Í‚·‚é‰æ‘œ
-//	min			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ¬’l
-//	max			: ‰æ‘œ‰»‚·‚é‰æ‘f’l‚Ì”ÍˆÍ‚ÌÅ‘å’l
+// å¼•æ•°
+//	dirName		: å‡ºåŠ›ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+//  img			: å‡ºåŠ›ã™ã‚‹ç”»åƒ
+//	min			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å°å€¤
+//	max			: ç”»åƒåŒ–ã™ã‚‹ç”»ç´ å€¤ã®ç¯„å›²ã®æœ€å¤§å€¤
 //
-// –ß‚è’l
-//  o—Í¬Œ÷‚ÅtrueC¸”s‚Åfalse‚ğ•Ô‚·
-// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+// æˆ»ã‚Šå€¤
+//  å‡ºåŠ›æˆåŠŸã§trueï¼Œå¤±æ•—ã§falseã‚’è¿”ã™
+// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 bool BitmapWriter::write(std::string dirName, ShortImage3D * img, double min, double max, int plane)
 {
 	ShortImage2D out;
 	std::string fileName;
 	std::ostringstream oss;
 
-	//ƒtƒHƒ‹ƒ_ì¬
+	//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
+#ifdef _WIN64
 	if (!_mkdir(dirName.c_str()))
 		std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#elif __linux
+	if (!mkdir(dirName.c_str(), 0777))
+		std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#endif // _WIN64
 
 	if (plane == Axial) {
 		out.newImage(img->sizeX, img->sizeY);
@@ -829,15 +879,22 @@ bool BitmapWriter::write(std::string dirName, ShortImage3D * img, double min, do
 	return 1;
 }
 
-// Bitmap‰æ‘œ‚Ì‘‚«o‚µ
+// Bitmapç”»åƒã®æ›¸ãå‡ºã—
 bool BitmapWriter::write(std::string dirName, ShortImage3D * img, short wl, short ww, double ganma = 1.0, int plane = 0)
 {
 	ShortImage2D out;
 	std::string fileName;
 	std::ostringstream oss;
-	//ƒtƒHƒ‹ƒ_ì¬
+	//ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
+#ifdef _WIN64
 	if (!_mkdir(dirName.c_str()))
 		std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#elif __linux
+	if (!mkdir(dirName.c_str(), 0777))
+		std::cerr << "Make folder \"" << dirName << "\"" << std::endl;
+
+#endif // _WIN64
 
 	if (plane == Axial) {
 		out.newImage(img->sizeX, img->sizeY);
@@ -881,7 +938,7 @@ bool BitmapWriter::write(std::string dirName, ShortImage3D * img, short wl, shor
 	return 1;
 }
 
-// 24ƒrƒbƒgƒtƒ‹ƒJƒ‰[Bitmap‚ÌBitmapInfoHeader‚Ìİ’è
+// 24ãƒ“ãƒƒãƒˆãƒ•ãƒ«ã‚«ãƒ©ãƒ¼Bitmapã®BitmapInfoHeaderã®è¨­å®š
 void BitmapWriter::setBitmapInfoHeader(long width, long height, Bmp::BitmapInfoHeader & bmih)
 {
 	bmih.biSize = 0x28;
@@ -897,7 +954,7 @@ void BitmapWriter::setBitmapInfoHeader(long width, long height, Bmp::BitmapInfoH
 	bmih.biClrImportant = 0x00;
 }
 
-// 24ƒrƒbƒgƒtƒ‹ƒJƒ‰[Bitmap‚ÌBitmapFileHeader‚Ìİ’è
+// 24ãƒ“ãƒƒãƒˆãƒ•ãƒ«ã‚«ãƒ©ãƒ¼Bitmapã®BitmapFileHeaderã®è¨­å®š
 void BitmapWriter::setBitmapFileHeader(unsigned long biSizeImage, Bmp::BitmapFileHeader & bmfh)
 {
 	bmfh.bfType = 'B' + ('M' << 8);
