@@ -50,8 +50,9 @@
 #include <float.h>
 #include <climits>
 
+//フォルダ作成用
 #ifdef _WIN64
-#include <direct.h>	//フォルダ作成用
+#include <direct.h>
 #elif __linux
 #include <sys/stat.h>
 #endif // _WIN64
