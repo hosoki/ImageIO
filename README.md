@@ -1,5 +1,5 @@
 # ImageIO
-Legacy ImageIO Library
+Image I/O Library
 
 ## Description
 金研　伝家の宝刀
@@ -11,15 +11,14 @@ Legacy ImageIO Library
 <!-- ## ImageIO VS. -->
 
 ## Requirement
-- Windows10 Visual Studio 2017 or Later
+- Windows10 Visual Studio 2017
+- Ubuntu 20.04 g++ 9.3.0
 
 ## Usage
 ```
-mkdir [workspace]
-cd [workspace]
 git clone git@github.com:hosoki/ImageIO.git
-cd src
-cmake ../build
+mkdir build && cd build
+cmake ../src
 ```
 
 <!-- ## Install -->
@@ -29,9 +28,8 @@ cmake ../build
 Free
 
 ## Licence
-
 None
 
 ## Author
 
-Kamiya Lab.
+Shinya MAEDA, Kim Lab.
